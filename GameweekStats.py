@@ -17,6 +17,7 @@ class GameweekStats:
 		# The slicing will be done one gameweek less; hence, the "+1" is needed
 		self.events_df = self.events_df.iloc[: index_num[0] + 1]
 
-	def fetch_scores_only(self):
+	def fetch_scores(self):
 
 		# Fetch the highest and average scores of the week
+		return self.events_df[['id','average_entry_score','highest_score']]
