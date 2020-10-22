@@ -8,6 +8,9 @@ class GameweekStats:
 		self.events_df = pd.DataFrame(json_file)
 		self.events_df = self.events_df[filtered_columns]
 
+	def total_gameweeks(self):
+		return len(self.events_df)
+
 
 	def filter(self):
 
