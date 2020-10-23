@@ -27,22 +27,21 @@ class GameweekStats:
 
 	def fetch_chip_stats(self):
 
-		# Return all the chip statistics played every gameweek in a dataframe format
-		chip_stats_dict = {
-	    	'bboost': [],
-	    	'3xc': [],
-	    	'wildcard': [],
-	    	'freehit': []
-        }
+		# Return all the chip statistics played every gameweek
+		chip_stats_list = []
 
-        chip_stats_dict = []
+		for gameweek_chip_list in self.events_df['chip_plays']:
 
-		for gameweek in gameweek_stats.events_df['chip_plays']:
-    
-	    for chip_played in gameweek:
-	        
-	        print(chip_played)
-	    
-	    print("\n\n")
+			chip_stats = {
+				'bboost': 0,
+				'3xc': 0,
+				'wildcard': 0,
+				'freehit': 0
+			}
 
-	    return chip_stats_dict
+			for chip_info in gameweek_chip_list:
+				chip_stats[chip_info['chip_name']] = chip_info['num_played']
+
+			chip_stats_list.append(chip_stats)
+
+		return pd.DataFrame(chip_stats_list)
