@@ -47,4 +47,4 @@ class GameweekStats:
 		return pd.DataFrame(chip_stats_list)
 
 	def fetch_transfers(self):
-		return self.events_df['transfers_made']
+		return self.events_df[['id','transfers_made']]
