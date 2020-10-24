@@ -7,13 +7,23 @@ class H2HStats:
 
 		self.id = id
 
-	def extract_results(self):
+	def extract_results(self, current_gameweek):
 
 		url = 'https://fantasy.premierleague.com/api/leagues-h2h-matches/league/{}/?page=1'.format(self.id)
 		r = requests.get(url)
 		json = r.json()
 
-		self.results_df = pd.DataFrame(json['results'])
+		results_list = []
+
+		for result in json['results']:
+
+			if result['event'] > (current_gameweek + 1):
+				break
+
+			results_list.append(result)
+
+
+		self.results_df = pd.DataFrame(results_list)
 
 	def filter_columns(self, column_list):
 
