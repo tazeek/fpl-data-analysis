@@ -11,14 +11,17 @@ class GameweekStats:
 	def total_gameweeks(self):
 		return len(self.events_df)
 
+	def current_gameweek_index(self):
+		
+		events_df = self.events_df
+		index_num = self.events_df[self.events_df['is_current']==True].index.values
+		return index_num[0]
+
 
 	def filter(self):
 
-		# We only want data till the current gameweek
-		index_num = self.events_df[self.events_df['is_current']==True].index.values
-
 		# The slicing will be done one gameweek less; hence, the "+1" is needed
-		self.events_df = self.events_df.iloc[: index_num[0] + 1]
+		self.events_df = self.events_df.iloc[: self.current_gameweek_index() + 1]
 
 	def fetch_scores(self):
 
