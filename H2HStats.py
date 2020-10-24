@@ -13,4 +13,8 @@ class H2HStats:
 		r = requests.get(url)
 		json = r.json()
 
-		return pd.DataFrame(json['results'])
+		self.results_df = pd.DataFrame(json['results'])
+
+	def filter_columns(self, column_list):
+
+		self.results_df = self.results_df[column_list]
