@@ -1,4 +1,5 @@
-This is for the 'events' key:
+This is for 'events':
+Link: https://fantasy.premierleague.com/api/bootstrap-static/
 
 id - ID of the gameweek 
 name - Name of the gameweek
@@ -21,3 +22,33 @@ top_element_info - info about top scorer
 transfers_made - total transfers made
 most_captained - player captained by most 
 most_vice_captained - player vice-captained by most
+
+This is for 'h2h leagues':
+Link: https://fantasy.premierleague.com/api/leagues-h2h-matches/league/{h2h_league_id}/
+
+has_next: boolean to indicate there is a next page
+page: page number (integer)
+results: current results from the page. These are the keys available:
+
+- 'id', 
+- 'entry_1_entry', 
+- 'entry_1_name', 
+- 'entry_1_player_name',
+- 'entry_1_points', 
+- 'entry_1_win',
+- 'entry_1_draw', 
+- 'entry_1_loss',
+- 'entry_1_total', 
+- 'entry_2_entry', 
+- 'entry_2_name', 
+- 'entry_2_player_name',
+- 'entry_2_points', 
+- 'entry_2_win', 
+- 'entry_2_draw', 
+- 'entry_2_loss',
+- 'entry_2_total', 
+- 'is_knockout', 
+- 'winner', 
+- 'seed_value', 
+- 'event',
+- 'tiebreak'
