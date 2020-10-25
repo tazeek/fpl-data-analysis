@@ -25,6 +25,8 @@ class H2HStats:
 
 		self.results_df = pd.DataFrame(results_list)
 
-	def filter_columns(self, column_list):
+	def filter_columns(self, column_list, rename_columns):
 
 		self.results_df = self.results_df[column_list]
+
+		self.results_df.rename(columns=rename_columns, inplace=True)
