@@ -3,10 +3,9 @@ import numpy as np
 
 class GameweekStats:
 
-	def __init__(self, json_file, filtered_columns):
+	def __init__(self, json_file):
 
 		self.events_df = pd.DataFrame(json_file)
-		self.events_df = self.events_df[filtered_columns]
 
 	def total_gameweeks(self):
 		return len(self.events_df)
@@ -18,7 +17,10 @@ class GameweekStats:
 		return index_num[0]
 
 
-	def filter(self):
+	def filter(self, filtered_columns):
+
+		# Keep the columns that are only needed
+		self.events_df = self.events_df[filtered_columns]
 
 		# The slicing will be done one gameweek less; hence, the "+1" is needed
 		self.events_df = self.events_df.iloc[: self.current_gameweek_index() + 1]
