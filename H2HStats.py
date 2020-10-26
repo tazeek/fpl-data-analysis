@@ -30,3 +30,24 @@ class H2HStats:
 		self.results_df = self.results_df[column_list]
 
 		self.results_df.rename(columns=rename_columns, inplace=True)
+
+	def extract_gameweek_points(self):
+
+		points_list = {}
+		gameweek_number = 0
+
+		for index,result in self.results_df.iterrows():
+
+			gameweek = result['gameweek']
+
+			if gameweek not in points_list:
+				points_list[gameweek] = []
+
+			points_list[result['gameweek']].append({
+				result['player_1']: result['player_1_points'],
+				result['player_2']: result['player_2_points']
+			})
+
+		return points_list
+		#return pd.DataFrame(points_list)
+
