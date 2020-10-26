@@ -33,21 +33,27 @@ class H2HStats:
 
 	def extract_gameweek_points(self):
 
-		points_list = {}
+		points_list = []
+		gameweek_points = {}
+
 		gameweek_number = 0
 
 		for index,result in self.results_df.iterrows():
 
-			gameweek = result['gameweek']
+			# Check if gameweek number is same:
+			# If so: Add to existing dictionary
+			if gameweek_number != result['gameweek']:
 
-			if gameweek not in points_list:
-				points_list[gameweek] = []
+				gameweek_number = result['gameweek']
+				points_list.append(gameweek_points)
+				gameweek_points = {'gameweek': gameweek_number}
 
-			points_list[result['gameweek']].append({
-				result['player_1']: result['player_1_points'],
-				result['player_2']: result['player_2_points']
-			})
+			gameweek_points[result['player_1']] =  result['player_1_points']
+			gameweek_points[result['player_2']] =  result['player_2_points']
 
-		return points_list
-		#return pd.DataFrame(points_list)
+		# The last gameweek data
+		points_list.append(gameweek_points)
+
+		#return points_list
+		return pd.DataFrame(points_list)
 
