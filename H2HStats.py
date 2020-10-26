@@ -36,7 +36,8 @@ class H2HStats:
 		points_list = []
 		gameweek_points = {}
 
-		gameweek_number = 0
+		# Gameweek always starts at 1
+		gameweek_number = 1
 
 		for index,result in self.results_df.iterrows():
 
@@ -44,16 +45,17 @@ class H2HStats:
 			# If so: Add to existing dictionary
 			if gameweek_number != result['gameweek']:
 
-				gameweek_number = result['gameweek']
 				points_list.append(gameweek_points)
-				gameweek_points = {'gameweek': gameweek_number}
+
+				gameweek_number = result['gameweek']
+				gameweek_points = {}
+				
 
 			gameweek_points[result['player_1']] =  result['player_1_points']
 			gameweek_points[result['player_2']] =  result['player_2_points']
 
-		# The last gameweek data
+		# Append the recent gameweek data
 		points_list.append(gameweek_points)
 
-		#return points_list
 		return pd.DataFrame(points_list)
 
