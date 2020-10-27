@@ -59,3 +59,44 @@ class H2HStats:
 
 		return pd.DataFrame(points_list)
 
+	def extract_player_points(self):
+
+		player_points_dict = {}
+		player_points_list = []
+		gameweek_number = 1
+
+		for index,result in self.results_df.iterrows():
+
+			player_1_name = result['player_1']
+			player_2_name = result['player_2']
+
+			if player_1_name not in player_points_dict:
+				player_points_dict[player_1_name] = 0
+
+			if player_2_name not in player_points_dict:
+				player_points_dict[player_2_name] = 0
+
+			# Find the points difference
+			# - If > 0, player 1 has won
+			# - If < 0, player 2 has won
+			# - If it is 0, it is a draw
+			points_difference = result['player_1_points'] - result['player_2_points']
+
+			if points_difference > 0:
+				player_points_dict[player_1_name] += 3
+			elif points_difference < 0:
+				player_points_dict[player_2_name] += 3
+			else:
+				player_points_dict[player_1_name] += 1
+				player_points_dict[player_2_name] += 1
+
+			if gameweek_number != result['gameweek']:
+
+				player_points_list.append(player_points_dict)
+				gameweek_number = result['gameweek']
+
+
+		# Append the last gameweek
+		player_points_list.append(player_points_dict)
+
+		return pd.DataFrame(player_points_list)
