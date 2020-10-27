@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import requests
 
 class H2HStats:
@@ -57,7 +58,10 @@ class H2HStats:
 		# Append the recent gameweek data
 		points_list.append(gameweek_points)
 
-		return pd.DataFrame(points_list)
+		points_list_df = pd.DataFrame(points_list)
+    points_list_df['average'] = points_list_df.mean(axis=1).apply(np.ceil)
+    
+    return points_list_df
 
 	def extract_player_points(self):
 
