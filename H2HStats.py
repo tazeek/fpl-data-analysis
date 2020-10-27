@@ -67,6 +67,11 @@ class H2HStats:
 
 		for index,result in self.results_df.iterrows():
 
+			if gameweek_number != result['gameweek']:
+
+				player_points_list.append(player_points_dict.copy())
+				gameweek_number = result['gameweek']
+
 			player_1_name = result['player_1']
 			player_2_name = result['player_2']
 
@@ -89,11 +94,6 @@ class H2HStats:
 			else:
 				player_points_dict[player_1_name] += 1
 				player_points_dict[player_2_name] += 1
-
-			if gameweek_number != result['gameweek']:
-
-				player_points_list.append(player_points_dict)
-				gameweek_number = result['gameweek']
 
 
 		# Append the last gameweek
