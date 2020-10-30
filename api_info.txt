@@ -78,17 +78,17 @@ This is for 'teams':
 'code', 
 'draw', 
 'form', 
-'id', 
-'loss', 
-'name', 
-'played', 
-'points',
-'position', 
-'short_name', 
-'strength', 
-'team_division', 
+'id', - team id
+'loss', - how many losses
+'name', - full name of team
+'played', - how many matches played
+'points', - how many points won
+'position', - position in league table
+'short_name', - short name of team
+'strength', - strength of team
+'team_division', - division of team
 'unavailable',
-'win', 
+'win', - number of wins
 'strength_overall_home', 
 'strength_overall_away',
 'strength_attack_home', 
