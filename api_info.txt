@@ -55,20 +55,20 @@ results: current results from the page. These are the keys available:
 
 This is for 'fixtures':
 
-'code', 
-'event', 
-'finished', 
+'code', - Match code
+'event', - 
+'finished', - If match has already been played or not 
 'finished_provisional', 
 'id',
-'kickoff_time', 
-'minutes', 
+'kickoff_time', - Start time
+'minutes', - Minutes played
 'provisional_start_time', 
-'started',
-'team_a', 
-'team_a_score', 
-'team_h', 
-'team_h_score', 
-'stats',
-'team_h_difficulty', 
-'team_a_difficulty', 
-'pulse_id'
+'started', - if match has started
+'team_a', - ID of away team
+'team_a_score', - goals scored by away team
+'team_h', - ID of home team
+'team_h_score', - goals scored by home team
+'stats', - stats of the match
+'team_h_difficulty', - difficulty level for home team
+'team_a_difficulty', - difficulty level for away team
+'pulse_id' - 
