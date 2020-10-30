@@ -52,3 +52,23 @@ results: current results from the page. These are the keys available:
 - 'seed_value', 
 - 'event',
 - 'tiebreak'
+
+This is for 'fixtures':
+
+'code', - Match code
+'event', - 
+'finished', - If match has already been played or not 
+'finished_provisional', 
+'id',
+'kickoff_time', - Start time
+'minutes', - Minutes played
+'provisional_start_time', 
+'started', - if match has started
+'team_a', - ID of away team
+'team_a_score', - goals scored by away team
+'team_h', - ID of home team
+'team_h_score', - goals scored by home team
+'stats', - stats of the match
+'team_h_difficulty', - difficulty level for home team
+'team_a_difficulty', - difficulty level for away team
+'pulse_id' - 
