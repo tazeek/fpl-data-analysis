@@ -14,3 +14,6 @@ class APIConnector:
 
 	def get_events_gameweeks(self):
 		return self.json_object['events']
+
+	def get_teams_information(self):
+		return self.json_object['teams']
