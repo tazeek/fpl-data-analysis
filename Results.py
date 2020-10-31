@@ -24,3 +24,11 @@ class Results:
 		my_df['team_h'] = my_df.team_h.map(team_names)
 
 		self.results_matches_df = my_df
+
+	def filter_unplayed_matches(self):
+
+		my_df = self.results_matches_df
+
+		my_df = my_df[my_df.finished==True]
+
+		self.results_matches_df = my_df
