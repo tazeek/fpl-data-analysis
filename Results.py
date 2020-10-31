@@ -25,10 +25,16 @@ class Results:
 
 		self.results_matches_df = my_df
 
-	def filter_unplayed_matches(self):
+	def _filter_unplayed_matches(self):
 
 		my_df = self.results_matches_df
 
-		my_df = my_df[my_df.finished==True]
+		return my_df[my_df.finished==True]
 
-		self.results_matches_df = my_df
+	def prepare_goal_stats(self):
+
+		my_df = self._filter_unplayed_matches()
+
+		my_df['total_goals'] = my_df['team_a_score'] + my_df['team_h_score']
+
+		return my_df
