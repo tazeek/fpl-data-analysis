@@ -33,8 +33,11 @@ class Results:
 
 	def prepare_goal_stats(self):
 
-		goals_df = self.results_matches_df[['team_h_score','team_a_score']].copy()
+		goals_df = self.results_matches_df[['event','team_h_score','team_a_score']].copy()
 		goals_df.dropna(inplace=True)
-		goals_df['total_goals_scored'] = goals_df.sum(axis=1)
+		goals_df['total_goals_scored'] = goals_df[['team_a_score','team_h_score']].sum(axis=1)
+
+		# Sum up: home goals, away goals, total goals scored
+		goals_df = goals_df.groupby(['event']).sum()
 
 		return goals_df
