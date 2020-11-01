@@ -33,8 +33,9 @@ class Results:
 
 	def prepare_goal_stats(self):
 
-		my_df = self._filter_unplayed_matches()
+		goals_df = self.results_matches_df[['team_h_score','team_a_score']]
+		goals_df.dropna(inplace=True)
 
-		my_df['total_goals'] = my_df['team_a_score'] + my_df['team_h_score']
+		#my_df['total_goals'] = my_df.loc[: , ['team_h_score', 'team_a_score']].sum(axis=1)
 
-		return my_df
+		return goals_df
