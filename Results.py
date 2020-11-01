@@ -33,7 +33,7 @@ class Results:
 
 	def prepare_goal_stats(self):
 
-		goals_df = self.results_matches_df[['team_h_score','team_a_score']]
+		goals_df = self.results_matches_df[['team_h_score','team_a_score']].copy()
 		goals_df.dropna(inplace=True)
 
 		#my_df['total_goals'] = my_df.loc[: , ['team_h_score', 'team_a_score']].sum(axis=1)
