@@ -24,3 +24,19 @@ class Results:
 		my_df['team_h'] = my_df.team_h.map(team_names)
 
 		self.results_matches_df = my_df
+
+	def _filter_unplayed_matches(self):
+
+		my_df = self.results_matches_df
+
+		return my_df[my_df.finished==True]
+
+	def prepare_goal_stats(self):
+
+		goals_df = self.results_matches_df[['event','team_h_score','team_a_score']].copy()
+		goals_df.dropna(inplace=True)
+
+		# Sum up: home goals, away goals
+		goals_df = goals_df.groupby(['event']).sum()
+
+		return goals_df
