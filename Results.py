@@ -25,12 +25,6 @@ class Results:
 
 		self.results_matches_df = my_df
 
-	def _filter_unplayed_matches(self):
-
-		my_df = self.results_matches_df
-
-		return my_df[my_df.finished==True]
-
 	def prepare_goal_stats(self):
 
 		goals_df = self.results_matches_df[['event','team_h_score','team_a_score']].copy()
@@ -40,3 +34,18 @@ class Results:
 		goals_df = goals_df.groupby(['event']).sum()
 
 		return goals_df
+
+	def prepare_clean_sheet_stats(self):
+
+		clean_sheets_df = self.results_matches_df[['event','team_h_score','team_a_score']].copy()
+		clean_sheets_df.dropna(inplace=True)
+
+		clean_sheets_df['home_team_cs'] = False
+		clean_sheets_df['away_team_cs'] = False
+
+		clean_sheets_df.loc[clean_sheets_df['team_h_score'] == 0, 'away_team_cs'] = True
+		clean_sheets_df.loc[clean_sheets_df['team_a_score'] == 0, 'home_team_cs'] = True
+
+		clean_sheets_df = clean_sheets_df.groupby(['event']).sum()
+
+		return clean_sheets_df
