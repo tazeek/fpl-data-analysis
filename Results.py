@@ -40,3 +40,10 @@ class Results:
 		goals_df = goals_df.groupby(['event']).sum()
 
 		return goals_df
+
+	def prepare_clean_sheet_stats(self):
+
+		clean_sheet_df = self.results_matches_df[['event','team_h_score','team_a_score']].copy()
+		clean_sheet_df.dropna(inplace=True)
+
+		return clean_sheet_df
