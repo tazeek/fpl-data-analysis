@@ -30,6 +30,16 @@ class Results:
 		gw_stats_df = self.results_matches_df[['event','team_h_score','team_a_score']].copy()
 		gw_stats_df.dropna(inplace=True)
 
+		gw_stats_df['home_team_cs'] = False
+		gw_stats_df['away_team_cs'] = False
+
+		gw_stats_df.loc[gw_stats_df['team_h_score'] == 0, 'away_team_cs'] = True
+		gw_stats_df.loc[gw_stats_df['team_a_score'] == 0, 'home_team_cs'] = True
+
+		gw_stats_df = gw_stats_df.groupby(['event']).sum()
+
+		return gw_stats_df
+
 	def prepare_goal_stats(self):
 
 		goals_df = self.results_matches_df[['event','team_h_score','team_a_score']].copy()
