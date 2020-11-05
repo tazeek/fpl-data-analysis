@@ -25,6 +25,11 @@ class Results:
 
 		self.results_matches_df = my_df
 
+	def prepare_gameweek_stats(self):
+
+		gw_stats_df = self.results_matches_df[['event','team_h_score','team_a_score']].copy()
+		gw_stats_df.dropna(inplace=True)
+
 	def prepare_goal_stats(self):
 
 		goals_df = self.results_matches_df[['event','team_h_score','team_a_score']].copy()
