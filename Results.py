@@ -89,4 +89,4 @@ class Results:
 		overall_df.reset_index(level=0, inplace=True)
 		overall_df.drop(['event'], axis=1, inplace=True)
 
-		return overall_df
+		return overall_df.sort_values('difficulty')
