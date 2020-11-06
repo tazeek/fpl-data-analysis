@@ -10,11 +10,11 @@ class GameweekStats:
 	def total_gameweeks(self):
 		return len(self.events_df)
 
-	def current_gameweek_index(self):
+	def current_gameweek_number(self):
 		
 		events_df = self.events_df
-		index_num = self.events_df[self.events_df['is_current']==True].index.values
-		return index_num[0]
+		index_num = events_df[events_df['is_current']==True].index.values
+		return index_num[0] + 1
 
 
 	def filter(self, filtered_columns):
@@ -23,7 +23,7 @@ class GameweekStats:
 		self.events_df = self.events_df[filtered_columns]
 
 		# The slicing will be done one gameweek less; hence, the "+1" is needed
-		self.events_df = self.events_df.iloc[: self.current_gameweek_index() + 1]
+		self.events_df = self.events_df.iloc[: self.current_gameweek_number()]
 
 	def fetch_scores(self):
 

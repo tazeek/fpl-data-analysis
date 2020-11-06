@@ -64,3 +64,29 @@ class Results:
 		clean_sheets_df = clean_sheets_df.groupby(['event']).sum()
 
 		return clean_sheets_df
+
+	def get_future_opponents_stats(self,current_gameweek_num):
+
+		future_matches_num = 4
+		column_list = ['event','team_h','team_h_difficulty','team_a','team_a_difficulty']
+
+		future_opp_score_df = self.results_matches_df[column_list].copy()
+
+		event_col = future_opp_score_df['event']
+
+		upper_bound = current_gameweek_num + future_matches_num
+		future_opp_score_df = future_opp_score_df[(event_col > current_gameweek_num) & (event_col <= upper_bound)]
+
+		home_teams_df = future_opp_score_df[['event','team_h','team_h_difficulty']].copy()
+		away_teams_df = future_opp_score_df[['event','team_a','team_a_difficulty']].copy()
+
+		home_teams_df.rename(columns={'team_h': 'team', 'team_h_difficulty':'difficulty'}, inplace=True)
+		away_teams_df.rename(columns={'team_a': 'team', 'team_a_difficulty':'difficulty'}, inplace=True)
+
+		overall_df = pd.concat([home_teams_df,away_teams_df])
+
+		overall_df = overall_df.groupby(['team']).mean()
+		overall_df.reset_index(level=0, inplace=True)
+		overall_df.drop(['event'], axis=1, inplace=True)
+
+		return overall_df.sort_values('difficulty')
