@@ -85,4 +85,4 @@ class Results:
 
 		overall_df = pd.concat([home_teams_df,away_teams_df])
 
-		return future_opp_score_df
+		return overall_df
