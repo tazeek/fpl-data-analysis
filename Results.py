@@ -80,9 +80,9 @@ class Results:
 		home_teams_df = future_opp_score_df[['event','team_h','team_h_difficulty']].copy()
 		away_teams_df = future_opp_score_df[['event','team_a','team_a_difficulty']].copy()
 
-		home_teams.rename(columns={'team_h': 'team', 'team_h_difficulty':'difficulty'}, inplace=True)
-		away_teams.rename(columns={'team_a': 'team', 'team_a_difficulty':'difficulty'}, inplace=True)
+		home_teams_df.rename(columns={'team_h': 'team', 'team_h_difficulty':'difficulty'}, inplace=True)
+		away_teams_df.rename(columns={'team_a': 'team', 'team_a_difficulty':'difficulty'}, inplace=True)
 
-		overall_df = pd.concat([home_teams,away_teams])
+		overall_df = pd.concat([home_teams_df,away_teams_df])
 
 		return future_opp_score_df
