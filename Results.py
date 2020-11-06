@@ -85,4 +85,8 @@ class Results:
 
 		overall_df = pd.concat([home_teams_df,away_teams_df])
 
+		overall_df = overall_df.groupby(['team']).mean()
+		overall_df.reset_index(level=0, inplace=True)
+		overall_df.drop(['event'], axis=1, inplace=True)
+
 		return overall_df
