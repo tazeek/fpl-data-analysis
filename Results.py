@@ -68,3 +68,8 @@ class Results:
 	def get_future_opponents_stats(self,current_gameweek_num):
 
 		future_matches_num = 4
+		column_list = ['event','team_h','team_h_difficulty','team_a','team_a_difficulty']
+
+		future_opp_score_df = self.results_matches_df[column_list].copy()
+
+		return future_opp_score_df
