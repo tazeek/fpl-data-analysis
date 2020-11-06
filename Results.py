@@ -77,4 +77,12 @@ class Results:
 		upper_bound = current_gameweek_num + future_matches_num
 		future_opp_score_df = future_opp_score_df[(event_col > current_gameweek_num) & (event_col <= upper_bound)]
 
+		home_teams_df = future_opp_score_df[['event','team_h','team_h_difficulty']].copy()
+		away_teams_df = future_opp_score_df[['event','team_a','team_a_difficulty']].copy()
+
+		home_teams.rename(columns={'team_h': 'team', 'team_h_difficulty':'difficulty'}, inplace=True)
+		away_teams.rename(columns={'team_a': 'team', 'team_a_difficulty':'difficulty'}, inplace=True)
+
+		overall_df = pd.concat([home_teams,away_teams])
+
 		return future_opp_score_df
