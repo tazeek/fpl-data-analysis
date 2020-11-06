@@ -64,3 +64,7 @@ class Results:
 		clean_sheets_df = clean_sheets_df.groupby(['event']).sum()
 
 		return clean_sheets_df
+
+	def get_future_opponents_stats(self,current_gameweek_num):
+
+		future_matches_num = 4
