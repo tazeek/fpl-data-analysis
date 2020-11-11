@@ -17,3 +17,9 @@ class APIConnector:
 
 	def get_teams_information(self):
 		return self.json_object['teams']
+
+	def get_player_information(self):
+		return self.json_object['elements']
+
+	def get_player_types(self):
+		return self.json_object['element_types']
