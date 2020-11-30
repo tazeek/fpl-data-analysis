@@ -56,7 +56,7 @@ Link: https://fantasy.premierleague.com/api/leagues-h2h-matches/league/{h2h_leag
 This is for 'fixtures':
 
 'code', - Match code
-'event', - event gameweekW
+'event', - event gameweek
 'finished', - If match has already been played or not 
 'finished_provisional', 
 'id', - 
@@ -101,53 +101,53 @@ This is for 'players':
 
 'chance_of_playing_next_round', 
 'chance_of_playing_this_round', 
-'code',
-'cost_change_event', 
+'code', - ID of player
+'cost_change_event',  - 
 'cost_change_event_fall', 
 'cost_change_start',
 'cost_change_start_fall', 
-'dreamteam_count', 
-'element_type', 
+'dreamteam_count', - How many times the player has made it to the dream team
+'element_type', - Position of player
 'ep_next',
 'ep_this', 
-'event_points', 
-'first_name', 
+'event_points', - Current gameweek points
+'first_name', - First name of player
 'form', 
 'id', 
-'in_dreamteam',
+'in_dreamteam', - If player is in dreamteam
 'news', 
 'news_added', 
-'now_cost', 
+'now_cost', - Cost of player
 'photo', 
-'points_per_game',
-'second_name', 
-'selected_by_percent', 
+'points_per_game', - Average points per game
+'second_name', - Last name of player
+'selected_by_percent', - Selected by overall percentage
 'special', 
 'squad_number',
-'status', 
-'team', 
-'team_code', 
-'total_points', 
-'transfers_in',
-'transfers_in_event', 
-'transfers_out', 
-'transfers_out_event',
+'status', - Status of availability
+'team', - Club name
+'team_code', - Club code for player
+'total_points', - Total number of points scored
+'transfers_in', - Total number of transfers in teams
+'transfers_in_event', - Total number of transfers in teams for the gameweek
+'transfers_out', - Total number of transfers out of teams
+'transfers_out_event', - Total number of transfers out of teams for the gameweek
 'value_form', 
 'value_season', 
 'web_name', 
-'minutes', 
-'goals_scored',
-'assists', 
-'clean_sheets', 
-'goals_conceded', 
-'own_goals',
-'penalties_saved', 
-'penalties_missed', 
-'yellow_cards', 
-'red_cards',
-'saves', 
-'bonus', 
-'bps', 
+'minutes', - Total amount of minutes played
+'goals_scored', - Total number of goals scored
+'assists', - Total number of assists
+'clean_sheets',  - Total number of clean sheets kept
+'goals_conceded', - Total number of goals conceded
+'own_goals', - Total number of own goals
+'penalties_saved', - Total number of penalties saved
+'penalties_missed', - Total number of penalties missed
+'yellow_cards', - Total number of yellow cards
+'red_cards', - Total number of red cards
+'saves', - Total saves made
+'bonus', - Total bonus earned
+'bps', - Bonus point system
 'influence', 
 'creativity', 
 'threat',
