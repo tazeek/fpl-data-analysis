@@ -32,34 +32,34 @@ Link: https://fantasy.premierleague.com/api/leagues-h2h-matches/league/{h2h_leag
 
 - 'id', 
 - 'entry_1_entry', 
-- 'entry_1_name', 
-- 'entry_1_player_name',
-- 'entry_1_points', 
-- 'entry_1_win',
-- 'entry_1_draw', 
-- 'entry_1_loss',
-- 'entry_1_total', 
-- 'entry_2_entry', 
-- 'entry_2_name', 
-- 'entry_2_player_name',
-- 'entry_2_points', 
-- 'entry_2_win', 
-- 'entry_2_draw', 
-- 'entry_2_loss',
+- 'entry_1_name', Player 1 team name
+- 'entry_1_player_name', - Player 1 name
+- 'entry_1_points',  - Player 1 points
+- 'entry_1_win', - Boolean if player 1 has won or not
+- 'entry_1_draw', - Boolean if player 1 has drawn or not
+- 'entry_1_loss', - Boolean if player 1 has lost or not
+- 'entry_1_total', - 
+- 'entry_2_entry', - Gameweek entry
+- 'entry_2_name', - Player 2 team name
+- 'entry_2_player_name', - Player 2 name
+- 'entry_2_points', - Player 2 points
+- 'entry_2_win', - Boolean if player 2 has won or not
+- 'entry_2_draw', - Boolean if player 2 has drawn or not
+- 'entry_2_loss', - Boolean if player 2 has lost or not
 - 'entry_2_total', 
-- 'is_knockout', 
+- 'is_knockout', - Boolean if it is a knockout match
 - 'winner', 
 - 'seed_value', 
-- 'event',
+- 'event', - Gameweek number
 - 'tiebreak'
 
 This is for 'fixtures':
 
 'code', - Match code
-'event', - 
+'event', - event gameweekW
 'finished', - If match has already been played or not 
 'finished_provisional', 
-'id',
+'id', - 
 'kickoff_time', - Start time
 'minutes', - Minutes played
 'provisional_start_time', 
