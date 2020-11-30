@@ -1,34 +1,34 @@
-This is for 'events':
+This is for 'events' call:
 Link: https://fantasy.premierleague.com/api/bootstrap-static/
 
-id - ID of the gameweek 
-name - Name of the gameweek
-deadline_time - Deadline time of the gameweek
-average_entry_score - Average points for the gameweek
-finished - Check for gameweek status
-data_checked - Check for gameweek status 
-highest_scoring_entry - ID for the team with the highest points 
-deadline_time_epoch - Deadline time in epoch format
-deadline_time_game_offset - Unknown 
-highest_score - highest points of the gameweek 
-is_previous - if it is the previous gameweek
-is_current - if current week is the same as the gameweek
-is_next - if the next gameweek is coming up 
-chip_plays - stats of all the chips used 
-most_selected - most selected player
-most_transferred_in - most transferred in player for the gameweek
-top_element - top scorer for the week 
-top_element_info - info about top scorer
-transfers_made - total transfers made
-most_captained - player captained by most 
-most_vice_captained - player vice-captained by most
+- id - ID of the gameweek 
+- name - Name of the gameweek
+- deadline_time - Deadline time of the gameweek
+- average_entry_score - Average points for the gameweek
+- finished - Check for gameweek status
+- data_checked - Check for gameweek status 
+- highest_scoring_entry - ID for the team with the highest points 
+- deadline_time_epoch - Deadline time in epoch format
+- deadline_time_game_offset - Unknown 
+- highest_score - highest points of the gameweek 
+- is_previous - if it is the previous gameweek
+- is_current - if current week is the same as the gameweek
+- is_next - if the next gameweek is coming up 
+- chip_plays - stats of all the chips used 
+- most_selected - most selected player
+- most_transferred_in - most transferred in player for the gameweek
+- top_element - top scorer for the week 
+- top_element_info - info about top scorer
+- transfers_made - total transfers made
+- most_captained - player captained by most 
+- most_vice_captained - player vice-captained by most
 
 This is for 'h2h leagues':
 Link: https://fantasy.premierleague.com/api/leagues-h2h-matches/league/{h2h_league_id}/
 
-has_next: boolean to indicate there is a next page
-page: page number (integer)
-results: current results from the page. These are the keys available:
+- has_next: boolean to indicate there is a next page
+- page: page number (integer)
+- results: current results from the page. These are the keys available:
 
 - 'id', 
 - 'entry_1_entry', 
