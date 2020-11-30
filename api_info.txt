@@ -1,65 +1,65 @@
-This is for 'events':
+This is for 'events' call:
 Link: https://fantasy.premierleague.com/api/bootstrap-static/
 
-id - ID of the gameweek 
-name - Name of the gameweek
-deadline_time - Deadline time of the gameweek
-average_entry_score - Average points for the gameweek
-finished - Check for gameweek status
-data_checked - Check for gameweek status 
-highest_scoring_entry - ID for the team with the highest points 
-deadline_time_epoch - Deadline time in epoch format
-deadline_time_game_offset - Unknown 
-highest_score - highest points of the gameweek 
-is_previous - if it is the previous gameweek
-is_current - if current week is the same as the gameweek
-is_next - if the next gameweek is coming up 
-chip_plays - stats of all the chips used 
-most_selected - most selected player
-most_transferred_in - most transferred in player for the gameweek
-top_element - top scorer for the week 
-top_element_info - info about top scorer
-transfers_made - total transfers made
-most_captained - player captained by most 
-most_vice_captained - player vice-captained by most
+- id - ID of the gameweek 
+- name - Name of the gameweek
+- deadline_time - Deadline time of the gameweek
+- average_entry_score - Average points for the gameweek
+- finished - Check for gameweek status
+- data_checked - Check for gameweek status 
+- highest_scoring_entry - ID for the team with the highest points 
+- deadline_time_epoch - Deadline time in epoch format
+- deadline_time_game_offset - Unknown 
+- highest_score - highest points of the gameweek 
+- is_previous - if it is the previous gameweek
+- is_current - if current week is the same as the gameweek
+- is_next - if the next gameweek is coming up 
+- chip_plays - stats of all the chips used 
+- most_selected - most selected player
+- most_transferred_in - most transferred in player for the gameweek
+- top_element - top scorer for the week 
+- top_element_info - info about top scorer
+- transfers_made - total transfers made
+- most_captained - player captained by most 
+- most_vice_captained - player vice-captained by most
 
 This is for 'h2h leagues':
 Link: https://fantasy.premierleague.com/api/leagues-h2h-matches/league/{h2h_league_id}/
 
-has_next: boolean to indicate there is a next page
-page: page number (integer)
-results: current results from the page. These are the keys available:
+- has_next: boolean to indicate there is a next page
+- page: page number (integer)
+- results: current results from the page. These are the keys available:
 
 - 'id', 
 - 'entry_1_entry', 
-- 'entry_1_name', 
-- 'entry_1_player_name',
-- 'entry_1_points', 
-- 'entry_1_win',
-- 'entry_1_draw', 
-- 'entry_1_loss',
-- 'entry_1_total', 
-- 'entry_2_entry', 
-- 'entry_2_name', 
-- 'entry_2_player_name',
-- 'entry_2_points', 
-- 'entry_2_win', 
-- 'entry_2_draw', 
-- 'entry_2_loss',
+- 'entry_1_name', Player 1 team name
+- 'entry_1_player_name', - Player 1 name
+- 'entry_1_points',  - Player 1 points
+- 'entry_1_win', - Boolean if player 1 has won or not
+- 'entry_1_draw', - Boolean if player 1 has drawn or not
+- 'entry_1_loss', - Boolean if player 1 has lost or not
+- 'entry_1_total', - 
+- 'entry_2_entry', - Gameweek entry
+- 'entry_2_name', - Player 2 team name
+- 'entry_2_player_name', - Player 2 name
+- 'entry_2_points', - Player 2 points
+- 'entry_2_win', - Boolean if player 2 has won or not
+- 'entry_2_draw', - Boolean if player 2 has drawn or not
+- 'entry_2_loss', - Boolean if player 2 has lost or not
 - 'entry_2_total', 
-- 'is_knockout', 
+- 'is_knockout', - Boolean if it is a knockout match
 - 'winner', 
 - 'seed_value', 
-- 'event',
+- 'event', - Gameweek number
 - 'tiebreak'
 
 This is for 'fixtures':
 
 'code', - Match code
-'event', - 
+'event', - event gameweek
 'finished', - If match has already been played or not 
 'finished_provisional', 
-'id',
+'id', - 
 'kickoff_time', - Start time
 'minutes', - Minutes played
 'provisional_start_time', 
@@ -96,3 +96,73 @@ This is for 'teams':
 'strength_defence_home',
 'strength_defence_away', 
 'pulse_id'
+
+This is for 'players':
+
+'chance_of_playing_next_round', 
+'chance_of_playing_this_round', 
+'code', - ID of player
+'cost_change_event',  - 
+'cost_change_event_fall', 
+'cost_change_start',
+'cost_change_start_fall', 
+'dreamteam_count', - How many times the player has made it to the dream team
+'element_type', - Position of player
+'ep_next',
+'ep_this', 
+'event_points', - Current gameweek points
+'first_name', - First name of player
+'form', 
+'id', 
+'in_dreamteam', - If player is in dreamteam
+'news', 
+'news_added', 
+'now_cost', - Cost of player
+'photo', 
+'points_per_game', - Average points per game
+'second_name', - Last name of player
+'selected_by_percent', - Selected by overall percentage
+'special', 
+'squad_number',
+'status', - Status of availability
+'team', - Club name
+'team_code', - Club code for player
+'total_points', - Total number of points scored
+'transfers_in', - Total number of transfers in teams
+'transfers_in_event', - Total number of transfers in teams for the gameweek
+'transfers_out', - Total number of transfers out of teams
+'transfers_out_event', - Total number of transfers out of teams for the gameweek
+'value_form', 
+'value_season', 
+'web_name', 
+'minutes', - Total amount of minutes played
+'goals_scored', - Total number of goals scored
+'assists', - Total number of assists
+'clean_sheets',  - Total number of clean sheets kept
+'goals_conceded', - Total number of goals conceded
+'own_goals', - Total number of own goals
+'penalties_saved', - Total number of penalties saved
+'penalties_missed', - Total number of penalties missed
+'yellow_cards', - Total number of yellow cards
+'red_cards', - Total number of red cards
+'saves', - Total saves made
+'bonus', - Total bonus earned
+'bps', - Bonus point system
+'influence', 
+'creativity', 
+'threat',
+'ict_index', 
+'influence_rank', 
+'influence_rank_type', 
+'creativity_rank',
+'creativity_rank_type', 
+'threat_rank', 
+'threat_rank_type',
+'ict_index_rank', 
+'ict_index_rank_type',
+'corners_and_indirect_freekicks_order',
+'corners_and_indirect_freekicks_text', 
+'direct_freekicks_order',
+'direct_freekicks_text', 
+'penalties_order', 
+'penalties_text'
