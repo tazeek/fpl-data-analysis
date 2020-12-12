@@ -15,7 +15,7 @@ class Graphs:
 		self._gameweek_stats = GameweekStats(self._api_connector.get_events_gameweeks())
 		self._team_info = Teams(self._api_connector.get_teams_information())
 
-	def get_future_fdr_scores(self):
+	def get_future_fdr_scores_fig(self):
 
 		results_obj = self._results_obj
 		team_df = self._team_info.return_dataframe_obj()
@@ -44,3 +44,11 @@ class Graphs:
 		)
 
 		return fig
+
+	def get_chips_stats_fig(self):
+
+		gameweek_stats = self._gameweek_stats
+
+		chip_stats_df = gameweek_stats.fetch_chip_stats()
+		total_gameweeks_played = gameweek_stats.total_gameweeks()
+		x_values = [i for i in range(1, total_gameweeks_played + 1)]
