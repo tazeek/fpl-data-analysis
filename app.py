@@ -62,8 +62,8 @@ def initialize_app(app):
 	)
 
 	app.layout = html.Div([
-		dcc.Graph(id='fdr-display',figure=graphs_obj.get_future_fdr_scores()),
-		dcc.Graph(id='show-all-chips',figure=chips_fig)
+		dcc.Graph(id='fdr-display',figure=graphs_obj.get_future_fdr_scores_fig()),
+		dcc.Graph(id='show-all-chips',figure=graphs_obj.get_chips_stats_fig())
 	])
 
 if __name__ == '__main__':
