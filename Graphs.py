@@ -52,3 +52,39 @@ class Graphs:
 		chip_stats_df = gameweek_stats.fetch_chip_stats()
 		total_gameweeks_played = gameweek_stats.total_gameweeks()
 		x_values = [i for i in range(1, total_gameweeks_played + 1)]
+
+		chip_stats_df.rename(
+			columns = {
+			'bboost':'bench_boost', 
+			'3xc':'triple_captain'
+			},
+			inplace = True
+		)
+
+		fig = go.Figure()
+
+		for column in chip_stats_df.columns:
+
+			fig.add_trace(go.Scatter(x=x_values, y=chip_stats_df[column],
+				mode='lines+markers',
+				name=column))
+
+		fig.update_layout(
+			title="Number of chips played per gameweek",
+			hovermode='x unified',
+			yaxis_tickformat='k'
+		)
+
+		fig.update_xaxes(
+			title_text = "Gameweek",
+			tickangle = 45,
+			nticks = total_gameweeks_played + 1,
+			title_standoff = 25
+		)
+
+		fig.update_yaxes(
+			title_text = "Total",
+			title_standoff = 25
+		)
+
+		return fig
