@@ -3,6 +3,8 @@ from APIConnector import APIConnector
 from GameweekStats import GameweekStats
 from Teams import Teams
 
+import plotly.graph_objects as go
+
 class Graphs:
 
 	def __init__(self):
@@ -20,7 +22,7 @@ class Graphs:
 
 		results_obj.map_teams(team_df)
 
-		future_opp_score_df = results_obj.get_future_opponents_stats(gameweek_stats.current_gameweek_number())
+		future_opp_score_df = results_obj.get_future_opponents_stats(self._gameweek_stats.current_gameweek_number())
 
 		fig = go.Figure(
 			go.Bar(
