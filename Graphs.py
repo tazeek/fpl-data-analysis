@@ -17,6 +17,7 @@ class Graphs:
 		self._results_obj = Results(self._team_info)
 
 		self._gameweek_number = self._gameweek_stats.current_gameweek_number().item() # convert int64 to int
+		self._x_values = [i for i in range(1, self._gameweek_number + 1)]
 
 	def get_future_fdr_scores_fig(self):
 
@@ -47,8 +48,6 @@ class Graphs:
 
 		chip_stats_df = self._gameweek_stats.fetch_chip_stats()
 
-		x_values = [i for i in range(1, self._gameweek_number + 1)]
-
 		chip_stats_df.rename(
 			columns = {
 			'bboost':'bench_boost', 
@@ -63,7 +62,7 @@ class Graphs:
 
 			fig.add_trace(
 				go.Scatter(
-					x=x_values, 
+					x=self._x_values, 
 					y=chip_stats_df[column],
 					mode='lines+markers',
 					name=column
@@ -94,15 +93,13 @@ class Graphs:
 
 		gw_stats_df = self._results_obj.prepare_gameweek_stats()
 
-		x_values = [i for i in range(1, len(gw_stats_df) + 1)]
-
 		fig = go.Figure() 
 
 		for column in ['home_team','away_team']:
 
 			fig.add_trace(
 				go.Scatter(
-					x=x_values, 
+					x=self._x_values, 
 					y=gw_stats_df[column],
 					mode='lines+markers',
 					name=column
