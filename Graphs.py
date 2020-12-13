@@ -91,4 +91,44 @@ class Graphs:
 		return fig
 
 	def get_clean_sheets_stats_fig(self):
-		
+
+		gw_stats_df = self._results_obj.prepare_gameweek_stats()
+
+		x_values = [i for i in range(1, len(gw_stats_df) + 1)]
+
+		fig = go.Figure()
+
+		gw_stats_df.rename(columns = {
+			'team_h_score':'home_team', 
+			'team_a_score': 'away_team'
+		}, inplace = True) 
+
+		for column in ['home_team','away_team']:
+
+			fig.add_trace(
+				go.Scatter(
+					x=x_values, 
+					y=gw_stats_df[column],
+					mode='lines+markers',
+					name=column
+				)
+			)
+
+		fig.update_layout(
+			title="Goals scored per gameweek (Home vs Away)",
+			hovermode='x unified',
+			yaxis_tickformat=',d'
+		)
+
+		fig.update_xaxes(
+			title_text = "Gameweek",
+			tickangle = 45,
+			title_standoff = 25
+		)
+
+		fig.update_yaxes(
+			title_text = "Goals scored",
+			title_standoff = 25
+		)
+
+		return fig
