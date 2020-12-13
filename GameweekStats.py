@@ -7,6 +7,12 @@ class GameweekStats:
 
 		self.events_df = pd.DataFrame(json_file)
 
+		useful_columns = ['id','average_entry_score','highest_score','chip_plays','most_selected',
+		'most_transferred_in','top_element','top_element_info','transfers_made',
+		'most_captained','most_vice_captained','is_current']
+
+		self._filter(useful_columns)
+
 	def total_gameweeks(self):
 		return len(self.events_df)
 
@@ -16,8 +22,7 @@ class GameweekStats:
 		index_num = events_df[events_df['is_current']==True].index.values
 		return index_num[0] + 1
 
-
-	def filter(self, filtered_columns):
+	def _filter(self, filtered_columns):
 
 		# Keep the columns that are only needed
 		self.events_df = self.events_df[filtered_columns]

@@ -4,18 +4,23 @@ import requests
 
 class Results:
 
-	def __init__(self):
+	def __init__(self, team_obj):
 
 		url = 'https://fantasy.premierleague.com/api/fixtures/'
+		filter_columns = ['code','finished_provisional','id','kickoff_time',
+		'minutes','provisional_start_time','started','pulse_id']
+
 		r = requests.get(url)
 
 		self.results_matches_df =  pd.DataFrame(r.json())
+		self._drop_columns(filter_columns)
+		self._map_teams(team_obj.return_dataframe_obj())
 
-	def drop_columns(self, drop_columns):
+	def _drop_columns(self, drop_columns):
 
 		self.results_matches_df = self.results_matches_df.drop(drop_columns, axis=1)
 
-	def map_teams(self,team_df):
+	def _map_teams(self,team_df):
 
 		my_df = self.results_matches_df
 		team_names = team_df.set_index('id').name
