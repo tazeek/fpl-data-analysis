@@ -17,6 +17,7 @@ class Graphs:
 		self._results_obj = Results(self._team_info)
 
 		self._gameweek_number = self._gameweek_stats.current_gameweek_number().item() # convert int64 to int
+		self._x_values = [i for i in range(1, self._gameweek_number + 1)]
 
 	def get_future_fdr_scores_fig(self):
 
@@ -47,8 +48,6 @@ class Graphs:
 
 		chip_stats_df = self._gameweek_stats.fetch_chip_stats()
 
-		x_values = [i for i in range(1, self._gameweek_number + 1)]
-
 		chip_stats_df.rename(
 			columns = {
 			'bboost':'bench_boost', 
@@ -63,7 +62,7 @@ class Graphs:
 
 			fig.add_trace(
 				go.Scatter(
-					x=x_values, 
+					x=self._x_values, 
 					y=chip_stats_df[column],
 					mode='lines+markers',
 					name=column
@@ -85,6 +84,42 @@ class Graphs:
 
 		fig.update_yaxes(
 			title_text = "Total",
+			title_standoff = 25
+		)
+
+		return fig
+
+	def get_goals_scored_stats_fig(self):
+
+		gw_stats_df = self._results_obj.prepare_gameweek_stats()
+
+		fig = go.Figure() 
+
+		for column in ['home_team','away_team']:
+
+			fig.add_trace(
+				go.Scatter(
+					x=self._x_values, 
+					y=gw_stats_df[column],
+					mode='lines+markers',
+					name=column
+				)
+			)
+
+		fig.update_layout(
+			title="Goals scored per gameweek (Home vs Away)",
+			hovermode='x unified',
+			yaxis_tickformat=',d'
+		)
+
+		fig.update_xaxes(
+			title_text = "Gameweek",
+			tickangle = 45,
+			title_standoff = 25
+		)
+
+		fig.update_yaxes(
+			title_text = "Goals scored",
 			title_standoff = 25
 		)
 
