@@ -22,7 +22,7 @@ class Graphs:
 
 		results_obj = self._results_obj
 
-		future_opp_score_df = results_obj.get_future_opponents_stats(self._gameweek_stats.current_gameweek_number())
+		future_opp_score_df = results_obj.get_future_opponents_stats(self._gameweek_number)
 
 		fig = go.Figure(
 			go.Bar(
@@ -65,9 +65,14 @@ class Graphs:
 
 		for column in chip_stats_df.columns:
 
-			fig.add_trace(go.Scatter(x=x_values, y=chip_stats_df[column],
-				mode='lines+markers',
-				name=column))
+			fig.add_trace(
+				go.Scatter(
+					x=x_values, 
+					y=chip_stats_df[column],
+					mode='lines+markers',
+					name=column
+				)
+			)
 
 		fig.update_layout(
 			title="Number of chips played per gameweek",
