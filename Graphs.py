@@ -89,7 +89,7 @@ class Graphs:
 
 		return fig
 
-	def get_clean_sheets_stats_fig(self):
+	def get_goals_scored_stats_fig(self):
 
 		gw_stats_df = self._results_obj.prepare_gameweek_stats()
 
