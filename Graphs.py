@@ -9,18 +9,16 @@ class Graphs:
 
 	def __init__(self):
 
-		self._results_obj = Results()
 		self._api_connector = APIConnector()
 		
 		self._gameweek_stats = GameweekStats(self._api_connector.get_events_gameweeks())
 		self._team_info = Teams(self._api_connector.get_teams_information())
 
+		self._results_obj = Results(self._team_info)
+
 	def get_future_fdr_scores_fig(self):
 
 		results_obj = self._results_obj
-		team_df = self._team_info.return_dataframe_obj()
-
-		results_obj.map_teams(team_df)
 
 		future_opp_score_df = results_obj.get_future_opponents_stats(self._gameweek_stats.current_gameweek_number())
 
