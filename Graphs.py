@@ -20,9 +20,7 @@ class Graphs:
 
 	def get_future_fdr_scores_fig(self):
 
-		results_obj = self._results_obj
-
-		future_opp_score_df = results_obj.get_future_opponents_stats(self._gameweek_number)
+		future_opp_score_df = self._results_obj.get_future_opponents_stats(self._gameweek_number)
 
 		fig = go.Figure(
 			go.Bar(
@@ -47,9 +45,7 @@ class Graphs:
 
 	def get_chips_stats_fig(self):
 
-		gameweek_stats = self._gameweek_stats
-
-		chip_stats_df = gameweek_stats.fetch_chip_stats()
+		chip_stats_df = self._gameweek_stats.fetch_chip_stats()
 
 		x_values = [i for i in range(1, self._gameweek_number + 1)]
 
