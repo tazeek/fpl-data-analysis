@@ -16,6 +16,8 @@ class Graphs:
 
 		self._results_obj = Results(self._team_info)
 
+		self._gameweek_number = self._gameweek_stats.current_gameweek_number().item() # convert int64 to int
+
 	def get_future_fdr_scores_fig(self):
 
 		results_obj = self._results_obj
@@ -48,8 +50,8 @@ class Graphs:
 		gameweek_stats = self._gameweek_stats
 
 		chip_stats_df = gameweek_stats.fetch_chip_stats()
-		total_gameweeks_played = gameweek_stats.total_gameweeks()
-		x_values = [i for i in range(1, total_gameweeks_played + 1)]
+
+		x_values = [i for i in range(1, self._gameweek_number + 1)]
 
 		chip_stats_df.rename(
 			columns = {
@@ -76,7 +78,7 @@ class Graphs:
 		fig.update_xaxes(
 			title_text = "Gameweek",
 			tickangle = 45,
-			nticks = total_gameweeks_played + 1,
+			nticks = self._gameweek_number + 1,
 			title_standoff = 25
 		)
 
