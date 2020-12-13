@@ -96,12 +96,7 @@ class Graphs:
 
 		x_values = [i for i in range(1, len(gw_stats_df) + 1)]
 
-		fig = go.Figure()
-
-		gw_stats_df.rename(columns = {
-			'team_h_score':'home_team', 
-			'team_a_score': 'away_team'
-		}, inplace = True) 
+		fig = go.Figure() 
 
 		for column in ['home_team','away_team']:
 

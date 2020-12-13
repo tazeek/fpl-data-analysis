@@ -43,6 +43,11 @@ class Results:
 
 		gw_stats_df = gw_stats_df.groupby(['event']).sum()
 
+		gw_stats_df.rename(columns = {
+			'team_h_score':'home_team', 
+			'team_a_score': 'away_team'
+		}, inplace = True)
+
 		return gw_stats_df
 
 	def prepare_goal_stats(self):
