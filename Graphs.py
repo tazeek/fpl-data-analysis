@@ -135,7 +135,7 @@ class Graphs:
 
 			fig.add_trace(
 				go.Scatter(
-					x=x_values, 
+					x=self._x_values, 
 					y=gw_stats_df[column],
 					mode='lines+markers',
 					name=column
