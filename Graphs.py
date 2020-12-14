@@ -127,4 +127,36 @@ class Graphs:
 
 	def get_clean_sheets_stats_fig(self):
 
+		gw_stats_df = self._results_obj.prepare_gameweek_stats()
+
 		fig = go.Figure()
+
+		for column in ['home_team_cs','away_team_cs']:
+
+			fig.add_trace(
+				go.Scatter(
+					x=x_values, 
+					y=gw_stats_df[column],
+					mode='lines+markers',
+					name=column
+					)
+				)
+
+		fig.update_layout(
+			title="Clean sheets per gameweek (Home vs Away)",
+			hovermode='x unified',
+			yaxis_tickformat=',d'
+		)
+
+		fig.update_xaxes(
+			title_text = "Gameweek",
+			tickangle = 45,
+			title_standoff = 25
+		)
+
+		fig.update_yaxes(
+			title_text = "Number of clean sheets",
+			title_standoff = 25
+		)
+
+		return fig
