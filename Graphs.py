@@ -139,8 +139,8 @@ class Graphs:
 					y=gw_stats_df[column],
 					mode='lines+markers',
 					name=column
-					)
 				)
+			)
 
 		fig.update_layout(
 			title="Clean sheets per gameweek (Home vs Away)",
