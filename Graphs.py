@@ -124,3 +124,7 @@ class Graphs:
 		)
 
 		return fig
+
+	def get_clean_sheets_stats_fig(self):
+
+		fig = go.Figure()
