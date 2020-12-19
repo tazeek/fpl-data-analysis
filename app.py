@@ -25,6 +25,7 @@ def initialize_app(app):
 if __name__ == '__main__':
 
 	app = dash.Dash()
+	server = app.server
 
 	initialize_app(app)
 
