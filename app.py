@@ -11,6 +11,9 @@ import dash
 import dash_core_components as dcc
 import dash_html_components as html
 
+app = dash.Dash()
+server = app.server
+
 def initialize_app(app):
 
 	graphs_obj = Graphs()
@@ -23,9 +26,6 @@ def initialize_app(app):
 	])
 
 if __name__ == '__main__':
-
-	app = dash.Dash()
-	server = app.server
 
 	initialize_app(app)
 
