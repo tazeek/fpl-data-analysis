@@ -72,7 +72,7 @@ class Graphs:
 
 		fig.update_layout(
 			title="Number of chips played per gameweek",
-			hovermode='x unified',
+			hovermode='x',
 			yaxis_tickformat='k'
 		)
 
@@ -107,7 +107,7 @@ class Graphs:
 
 		fig.update_layout(
 			title="Goals scored per gameweek (Home vs Away)",
-			hovermode='x unified',
+			hovermode='x',
 			yaxis_tickformat=',d'
 		)
 
@@ -141,7 +141,7 @@ class Graphs:
 
 		fig.update_layout(
 			title="Clean sheets per gameweek (Home vs Away)",
-			hovermode='x unified',
+			hovermode='x',
 			yaxis_tickformat=',d'
 		)
 
