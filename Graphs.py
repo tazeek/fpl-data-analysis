@@ -108,7 +108,7 @@ class Graphs:
 		fig.update_layout(
 			title="Goals scored per gameweek (Home vs Away)",
 			hovermode='x',
-			yaxis_tickformat=',d'
+			yaxis_tickformat='k'
 		)
 
 		fig.update_xaxes(
@@ -142,7 +142,7 @@ class Graphs:
 		fig.update_layout(
 			title="Clean sheets per gameweek (Home vs Away)",
 			hovermode='x',
-			yaxis_tickformat=',d'
+			yaxis_tickformat='k'
 		)
 
 		fig.update_xaxes(
