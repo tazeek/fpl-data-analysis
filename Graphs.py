@@ -200,3 +200,30 @@ class Graphs:
 		)
 
 		return fig
+
+	def get_transfers_stats(self):
+
+		fig = go.Figure()
+		gameweek_stats = self._gameweek_obj
+
+		fig.add_trace(
+			go.Scatter(
+				x=transfers_df['id'], 
+				y=transfers_df['transfers_made'],
+				mode='lines+markers',
+				hovertemplate='Total: %{y}'
+			)
+		)
+
+		fig.update_layout(
+			title="Total transfers per gameweek"
+		)
+
+		fig.update_xaxes(
+			title_text = "Gameweek",
+			tickangle = 45,
+			nticks = gameweek_stats.total_gameweeks() + 1,
+			title_standoff = 25
+		)
+
+		return fig
