@@ -15,9 +15,12 @@ class User:
 	def fetch_current_squad(self):
 
 		url = f"https://fantasy.premierleague.com/api/my-team/{self._fpl_id}/"
-		r = self._session.get(url)
+		response = self._session.get(url)
 
-		return r
+		squad = response.json()['picks']
+		squad_df = pd.DataFrame(squad)
+
+		return squad_df
 
 	def _login(self):
 
