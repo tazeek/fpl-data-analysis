@@ -206,6 +206,8 @@ class Graphs:
 		fig = go.Figure()
 		gameweek_stats = self._gameweek_obj
 
+		transfers_df = gameweek_stats.fetch_transfers()
+
 		fig.add_trace(
 			go.Scatter(
 				x=transfers_df['id'], 
