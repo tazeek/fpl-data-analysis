@@ -51,8 +51,8 @@ class Graphs:
 
 		chip_stats_df.rename(
 			columns = {
-			'bboost':'bench_boost', 
-			'3xc':'triple_captain'
+				'bboost':'bench_boost', 
+				'3xc':'triple_captain'
 			},
 			inplace = True
 		)
@@ -153,6 +153,78 @@ class Graphs:
 
 		fig.update_yaxes(
 			title_text = "Number of clean sheets",
+			title_standoff = 25
+		)
+
+		return fig
+
+	def get_fpl_scores_stats(self):
+
+		fig = go.Figure()
+		gameweek_stats = self._gameweek_obj
+
+		scores_df = gameweek_stats.fetch_scores()
+		total_gameweeks_played = gameweek_stats.total_gameweeks()
+
+		fig.add_trace(
+			go.Scatter(
+				x=scores_df['id'], 
+				y=scores_df['highest_score'],
+				mode='lines+markers',
+				name='Highest Score'
+			)
+		)
+
+		fig.add_trace(
+			go.Scatter(
+				x=scores_df['id'], 
+				y=scores_df['average_entry_score'],
+				mode='lines+markers',
+				name='Average Score'
+			)
+		)
+
+		fig.update_layout(title="Gameweek History Scores")
+
+		fig.update_xaxes(
+			title_text = "Gameweek",
+			tickangle = 45,
+			nticks = self._gameweek_number + 1,
+			title_standoff = 25
+		)
+
+
+		fig.update_yaxes(
+			title_text = "Scores",
+			title_standoff = 25
+		)
+
+		return fig
+
+	def get_transfers_stats(self):
+
+		fig = go.Figure()
+		gameweek_stats = self._gameweek_obj
+
+		transfers_df = gameweek_stats.fetch_transfers()
+
+		fig.add_trace(
+			go.Scatter(
+				x=transfers_df['id'], 
+				y=transfers_df['transfers_made'],
+				mode='lines+markers',
+				hovertemplate='Total: %{y}'
+			)
+		)
+
+		fig.update_layout(
+			title="Total transfers per gameweek"
+		)
+
+		fig.update_xaxes(
+			title_text = "Gameweek",
+			tickangle = 45,
+			nticks = gameweek_stats.total_gameweeks() + 1,
 			title_standoff = 25
 		)
 
