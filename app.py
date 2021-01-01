@@ -1,8 +1,3 @@
-from Results import Results
-from APIConnector import APIConnector
-from GameweekStats import GameweekStats
-from Teams import Teams
-
 from Graphs import Graphs
 
 import plotly.graph_objects as go
