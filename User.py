@@ -10,17 +10,35 @@ class User:
 		self._password = password
 		self._session = None
 
+		self._squad_df = None
+
 		self._login()
 
-	def fetch_current_squad(self):
+	def fetch_current_squad(self, player_info_df):
 
-		url = f"https://fantasy.premierleague.com/api/my-team/{self._fpl_id}/"
-		response = self._session.get(url)
+		if self._squad_df is None:
 
-		squad = response.json()['picks']
-		squad_df = pd.DataFrame(squad)
+			url = f"https://fantasy.premierleague.com/api/my-team/{self._fpl_id}/"
+			response = self._session.get(url)
 
-		return squad_df
+			if response.status_code != 200:
+				return { 'error' : 'Failed to fetch squad. Please try again later' }
+
+			squad = response.json()['picks']
+			squad_df = pd.DataFrame(squad)
+
+			squad_df.set_index('element',inplace=True)
+			player_info_df.set_index('id',inplace=True)
+
+			squad_df = pd.merge(squad_df, player_info_df, left_index=True, right_index=True)
+			squad_df.reset_index(drop=True,inplace=True)
+
+			column_list = ['name','selected_by_percent','now_cost',
+				'goals_scored','assists','clean_sheets', 'bonus', 'total_points']
+
+			self._squad_df = squad_df[column_list]
+
+		return {'squad' : self._squad_df }
 
 	def _login(self):
 
