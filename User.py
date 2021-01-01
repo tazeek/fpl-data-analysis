@@ -21,6 +21,9 @@ class User:
 			url = f"https://fantasy.premierleague.com/api/my-team/{self._fpl_id}/"
 			response = self._session.get(url)
 
+			if response.status_code != 200:
+				return { 'error' : 'Failed to fetch squad. Please try again later' }
+
 			squad = response.json()['picks']
 			squad_df = pd.DataFrame(squad)
 
@@ -35,7 +38,7 @@ class User:
 
 			self._squad_df = squad_df[column_list]
 
-		return self._squad_df
+		return {'squad' : self._squad_df }
 
 	def _login(self):
 
