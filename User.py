@@ -10,17 +10,26 @@ class User:
 		self._password = password
 		self._session = None
 
+		self._squad_df = None
+
 		self._login()
 
-	def fetch_current_squad(self):
+	def fetch_current_squad(self, player_info_df):
 
-		url = f"https://fantasy.premierleague.com/api/my-team/{self._fpl_id}/"
-		response = self._session.get(url)
+		if self._squad_df is None:
 
-		squad = response.json()['picks']
-		squad_df = pd.DataFrame(squad)
+			url = f"https://fantasy.premierleague.com/api/my-team/{self._fpl_id}/"
+			response = self._session.get(url)
 
-		return squad_df
+			squad = response.json()['picks']
+			squad_df = pd.DataFrame(squad)
+
+			squad_df.set_index('element',inplace=True)
+			player_info_df.set_index('id',inplace=True)
+
+			self._squad_df = pd.merge(squad_df, player_info_df, left_index=True, right_index=True)
+
+		return self._squad_df
 
 	def _login(self):
 

@@ -17,5 +17,10 @@ class Player:
                'assists','clean_sheets','bonus','total_points']
 
 		self._players_df = df[column_list]
+		self._players_df.set_index('id',inplace=True)
 
 		return None
+
+	def get_players_information(self):
+
+		return self._players_df
