@@ -27,7 +27,13 @@ class User:
 			squad_df.set_index('element',inplace=True)
 			player_info_df.set_index('id',inplace=True)
 
-			self._squad_df = pd.merge(squad_df, player_info_df, left_index=True, right_index=True)
+			squad_df = pd.merge(squad_df, player_info_df, left_index=True, right_index=True)
+			squad_df.reset_index(drop=True,inplace=True)
+
+			column_list = ['name','selected_by_percent','now_cost',
+				'goals_scored','assists','clean_sheets', 'bonus', 'total_points']
+
+			self._squad_df = squad_df[column_list]
 
 		return self._squad_df
 
