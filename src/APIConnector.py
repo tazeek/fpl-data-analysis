@@ -1,7 +1,7 @@
-from GameweekStats import GameweekStats
-from Teams import Teams
-from Results import Results
-from Player import Player
+from src.GameweekStats import GameweekStats
+from src.Teams import Teams
+from src.Results import Results
+from src.Player import Player
 
 import requests
 
