@@ -184,7 +184,10 @@ class Graphs:
 			)
 		)
 
-		fig.update_layout(title="Gameweek History Scores")
+		fig.update_layout(
+			title="Gameweek History Scores",
+			hovermode="x"
+		)
 
 		fig.update_xaxes(
 			title_text = "Gameweek",
