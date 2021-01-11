@@ -100,3 +100,9 @@ class Results:
 		overall_df.drop(['event'], axis=1, inplace=True)
 
 		return overall_df.sort_values('difficulty')
+
+	def find_previous_match_results(self, current_gameweek_num):
+
+		previous_matches_num = 4
+
+		return None
