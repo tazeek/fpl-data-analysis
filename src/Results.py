@@ -104,8 +104,14 @@ class Results:
 	def find_previous_match_results(self, current_gameweek_num):
 
 		previous_matches_num = 4
+		lower_bound = current_gameweek_num - previous_matches_num
 
+		# Filter columns and drop null values
 		results_matches_df = self.results_matches_df[['event','team_h','team_h_score','team_a','team_a_score']].copy()
 		results_matches_df.dropna(inplace=True)
+
+		# Filter from lower to current gameweek
+		event_col = results_matches_df['event']
+		results_matches_df = results_matches_df[(event_col <= current_gameweek_num) & (event_col > lower_bound)]
 
 		return results_matches_df
