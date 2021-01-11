@@ -105,4 +105,7 @@ class Results:
 
 		previous_matches_num = 4
 
-		return None
+		results_matches_df = self.results_matches_df[['event','team_h','team_h_score','team_a','team_a_score']].copy()
+		results_matches_df.dropna(inplace=True)
+
+		return results_matches_df
