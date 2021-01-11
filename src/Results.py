@@ -114,4 +114,6 @@ class Results:
 		event_col = results_matches_df['event']
 		results_matches_df = results_matches_df[(event_col <= current_gameweek_num) & (event_col > lower_bound)]
 
-		return results_matches_df
+		results_matches_dict = results_matches_df.to_dict('records')
+
+		return results_matches_dict
