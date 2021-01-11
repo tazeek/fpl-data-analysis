@@ -1,7 +1,7 @@
-from Results import Results
-from APIConnector import APIConnector
-from GameweekStats import GameweekStats
-from Teams import Teams
+from src.Results import Results
+from src.APIConnector import APIConnector
+from src.GameweekStats import GameweekStats
+from src.Teams import Teams
 
 import plotly.graph_objects as go
 
@@ -10,14 +10,14 @@ class Graphs:
 	def __init__(self):
 
 		self._api_connector = APIConnector()
-		
-		self._team_info = Teams(self._api_connector.get_teams_information())
+		self._teams_info = self._api_connector.get_teams_information()
+		self._gameweek_obj = self._api_connector.get_events_gameweeks()
 
-		self._results_obj = Results(self._team_info)
+		self._results_obj = Results(self._teams_info)
 		self._gameweek_results = self._results_obj.prepare_gameweek_stats()
 
-		self._gameweek_obj = GameweekStats(self._api_connector.get_events_gameweeks())
 		self._gameweek_number = self._gameweek_obj.current_gameweek_number().item() # convert int64 to int
+
 		self._x_values = [i for i in range(1, self._gameweek_number + 1)]
 
 	def get_future_fdr_scores_fig(self):
@@ -184,7 +184,10 @@ class Graphs:
 			)
 		)
 
-		fig.update_layout(title="Gameweek History Scores")
+		fig.update_layout(
+			title="Gameweek History Scores",
+			hovermode="x"
+		)
 
 		fig.update_xaxes(
 			title_text = "Gameweek",
