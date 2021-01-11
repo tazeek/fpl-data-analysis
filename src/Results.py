@@ -116,4 +116,32 @@ class Results:
 
 		results_matches_dict = results_matches_df.to_dict('records')
 
-		return results_matches_dict
+		team_form_dict = {}
+
+		for results in results_matches_dict:
+
+			home_team = results['team_h']
+			away_team = results['team_a']
+
+			home_score = results['team_h_score']
+			away_score = results['team_a_score']
+
+			if home_team not in team_form_dict:
+				team_form_dict[home_team] = {
+					'goals_for': 0,
+					'goals_against': 0
+				}
+
+			if away_team not in team_form_dict:
+				team_form_dict[away_team] = {
+					'goals_for': 0,
+					'goals_against': 0
+				}
+
+			team_form_dict[home_team]['goals_for'] += home_score
+			team_form_dict[home_team]['goals_against'] += away_score
+
+			team_form_dict[away_team]['goals_for'] += away_score
+			team_form_dict[away_team]['goals_against'] += home_score
+
+		return team_form_dict
