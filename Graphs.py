@@ -263,6 +263,10 @@ class Graphs:
 			)
 		)
 
-		fig.update_layout(barmode='stack')
+		fig.update_layout(
+			barmode='stack',
+			title="Goals for and against (Previous four matches)",
+			height = 700
+		)
 		
 		return fig
