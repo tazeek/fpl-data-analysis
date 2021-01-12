@@ -148,4 +148,6 @@ class Results:
 		# Convert back to dataframe and find goal difference
 		team_form_df = pd.DataFrame.from_dict(team_form_dict, orient='index')
 
-		return team_form_df
+		team_form_df['goal_difference'] = team_form_df['goals_for'] - team_form_df['goals_against']
+
+		return team_form_df.sort_values('goal_difference', ascending=False)
