@@ -114,6 +114,7 @@ class Results:
 		event_col = results_matches_df['event']
 		results_matches_df = results_matches_df[(event_col <= current_gameweek_num) & (event_col > lower_bound)]
 
+		# Convert to list of dictionary and create the dictionary for goals stats
 		results_matches_dict = results_matches_df.to_dict('records')
 
 		team_form_dict = {}
@@ -144,4 +145,7 @@ class Results:
 			team_form_dict[away_team]['goals_for'] += away_score
 			team_form_dict[away_team]['goals_against'] += home_score
 
-		return team_form_dict
+		# Convert back to dataframe and find goal difference
+		team_form_df = pd.DataFrame.from_dict(team_form_dict, orient='index')
+
+		return team_form_df
