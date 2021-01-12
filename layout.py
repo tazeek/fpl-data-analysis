@@ -19,6 +19,7 @@ def generate_layout():
 		dcc.Graph(id='show-all-chips',figure=graphs_obj.get_chips_stats_fig()),
 		dcc.Graph(id='fpl-scores-stats',figure=graphs_obj.get_fpl_scores_stats()),
 		dcc.Graph(id='fpl-transfers-stats',figure=graphs_obj.get_transfers_stats()),
+		dcc.Graph(id='team-involvements-prev',figure=graphs_obj.get_goals_scored_conceded()),
 		dcc.Graph(id='goals-scored-fig',figure=graphs_obj.get_goals_scored_stats_fig()),
 		dcc.Graph(id='clean-sheet-stats',figure=graphs_obj.get_clean_sheets_stats_fig())
 	])

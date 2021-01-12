@@ -232,3 +232,41 @@ class Graphs:
 		)
 
 		return fig
+
+	def get_goals_scored_conceded(self):
+
+		team_form_df = self._results_obj.find_previous_match_results(self._gameweek_number)
+
+		fig = go.Figure()
+
+		fig.add_trace(
+			go.Bar(
+				y=team_form_df.index,
+				x=team_form_df['goals_for'],
+				name='Goals scored',
+				orientation='h',
+				marker=dict(
+				color='rgba(13, 142, 6, 0.81)',
+				line=dict(color='rgba(13, 142, 6, 1)', width=2))
+			)
+		)
+
+		fig.add_trace(
+			go.Bar(
+				y=team_form_df.index,
+				x=team_form_df['goals_against'],
+				name='Goals against',
+				orientation='h',
+				marker=dict(
+				color='rgba(142, 6, 6, 0.81)',
+				line=dict(color='rgba(142, 6, 6, 1)', width=2))
+			)
+		)
+
+		fig.update_layout(
+			barmode='stack',
+			title="Goals for and against (Previous four matches)",
+			height = 700
+		)
+		
+		return fig

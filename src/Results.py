@@ -100,3 +100,53 @@ class Results:
 		overall_df.drop(['event'], axis=1, inplace=True)
 
 		return overall_df.sort_values('difficulty')
+
+	def find_previous_match_results(self, current_gameweek_num):
+
+		previous_matches_num = 4
+		lower_bound = current_gameweek_num - previous_matches_num
+
+		# Filter columns and drop null values
+		results_matches_df = self.results_matches_df[['event','team_h','team_h_score','team_a','team_a_score']].copy()
+		results_matches_df.dropna(inplace=True)
+
+		# Filter from lower to current gameweek
+		event_col = results_matches_df['event']
+		results_matches_df = results_matches_df[(event_col <= current_gameweek_num) & (event_col > lower_bound)]
+
+		# Convert to list of dictionary and create the dictionary for goals stats
+		results_matches_dict = results_matches_df.to_dict('records')
+
+		team_form_dict = {}
+
+		for results in results_matches_dict:
+
+			home_team = results['team_h']
+			away_team = results['team_a']
+
+			home_score = results['team_h_score']
+			away_score = results['team_a_score']
+
+			if home_team not in team_form_dict:
+				team_form_dict[home_team] = {
+					'goals_for': 0,
+					'goals_against': 0
+				}
+
+			if away_team not in team_form_dict:
+				team_form_dict[away_team] = {
+					'goals_for': 0,
+					'goals_against': 0
+				}
+
+			team_form_dict[home_team]['goals_for'] += home_score
+			team_form_dict[home_team]['goals_against'] += away_score
+
+			team_form_dict[away_team]['goals_for'] += away_score
+			team_form_dict[away_team]['goals_against'] += home_score
+
+		# Convert back to dataframe and find goal difference
+		team_form_df = pd.DataFrame.from_dict(team_form_dict, orient='index')
+		team_form_df['total_goals_involved'] = team_form_df['goals_for'] + team_form_df['goals_against']
+
+		return team_form_df.sort_values('total_goals_involved')
