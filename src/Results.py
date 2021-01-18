@@ -124,20 +124,27 @@ class Results:
 			home_team = results['team_h']
 			away_team = results['team_a']
 
-			home_score = results['team_h_score']
-			away_score = results['team_a_score']
-
 			if home_team not in team_form_dict:
 				team_form_dict[home_team] = {
 					'goals_for': 0,
-					'goals_against': 0
+					'goals_against': 0,
+					'clean_sheets_num': 0
 				}
 
 			if away_team not in team_form_dict:
 				team_form_dict[away_team] = {
 					'goals_for': 0,
-					'goals_against': 0
+					'goals_against': 0,
+					'clean_sheets_num': 0
 				}
+
+			home_score = results['team_h_score']
+			away_score = results['team_a_score']
+
+			if home_score == 0:
+				team_form_dict[away_team]['clean_sheets_num'] += 1
+			elif away_score == 0:
+				team_form_dict[home_team]['clean_sheets_num'] += 1
 
 			team_form_dict[home_team]['goals_for'] += home_score
 			team_form_dict[home_team]['goals_against'] += away_score
