@@ -233,9 +233,37 @@ class Graphs:
 
 		return fig
 
-	def get_goals_scored_conceded(self):
+	def _get_clean_sheets_form(self, team_form_df):
 
-		team_form_df = self._results_obj.find_previous_match_results(self._gameweek_number)
+		team_form_df.sort_values('clean_sheets_num', inplace=True) 
+
+		fig = go.Figure()
+
+		fig.add_trace(
+			go.Bar(
+				y=team_form_df.index,
+				x=team_form_df['clean_sheets_num'],
+				orientation='h'
+			)
+		)
+
+		fig.update_layout(
+			title="Total clean sheets in the last 4 matches",
+			height = 700
+		)
+
+		fig.update_xaxes(
+			title_text = "Number",
+			tickangle = 45,
+			title_standoff = 25
+		)
+
+		return fig
+
+
+	def _get_goals_scored_conceded(self, team_form_df):
+
+		team_form_df.sort_values('total_goals_involved',inplace=True)
 
 		fig = go.Figure()
 
@@ -245,6 +273,10 @@ class Graphs:
 				x=team_form_df['goals_for'],
 				name='Goals scored',
 				orientation='h',
+				texttemplate="%{x}",
+				textposition="inside",
+				textfont_color='white',
+				hoverinfo='none',
 				marker=dict(
 				color='rgba(13, 142, 6, 0.81)',
 				line=dict(color='rgba(13, 142, 6, 1)', width=2))
@@ -257,6 +289,10 @@ class Graphs:
 				x=team_form_df['goals_against'],
 				name='Goals against',
 				orientation='h',
+				texttemplate="%{x}",
+				textposition="inside",
+				textfont_color='white',
+				hoverinfo='none',
 				marker=dict(
 				color='rgba(142, 6, 6, 0.81)',
 				line=dict(color='rgba(142, 6, 6, 1)', width=2))
@@ -270,3 +306,12 @@ class Graphs:
 		)
 		
 		return fig
+
+	def get_info_about_teams_form(self):
+
+		team_form_df = self._results_obj.find_previous_match_results(self._gameweek_number)
+
+		return {
+			'goals_scored_concded_fig': self._get_goals_scored_conceded(team_form_df[['goals_for','goals_against','total_goals_involved']].copy()),
+			'clean_sheets_fig': self._get_clean_sheets_form(team_form_df[['clean_sheets_num']].copy())
+		}
