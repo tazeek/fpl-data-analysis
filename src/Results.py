@@ -220,5 +220,15 @@ class Results:
 		inform_stats_df = pd.DataFrame.from_dict(in_form_players_dict, orient='index')
 		inform_stats_df['involved'] = inform_stats_df['goals'] + inform_stats_df['assists']
 
-		return inform_stats_df
+		# Filter out players who are not so involved
+		inform_stats_df.query('involved > 1', inplace=True)
+		inform_stats_df.sort_values('involved',ascending=False,inplace=True)
+
+		# Filter out players who do not have a lot of bonuses
+		bonus_stats_only_df = inform_stats_df[['bonus']].copy()
+		bonus_stats_only_df.sort_values('bonus',ascending=False,inplace=True)
+		bonus_stats_only_df.query('bonus > 3', inplace=True)
+
+
+		return inform_stats_df, bonus_stats_only_df
 
