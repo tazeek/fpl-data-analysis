@@ -12,17 +12,17 @@ class Results:
 
 		r = requests.get(url)
 
-		self.results_matches_df =  pd.DataFrame(r.json())
+		self._results_matches_df =  pd.DataFrame(r.json())
 		self._drop_columns(filter_columns)
 		self._map_teams(team_obj.return_dataframe_obj())
 
 	def _drop_columns(self, drop_columns):
 
-		self.results_matches_df = self.results_matches_df.drop(drop_columns, axis=1)
+		self._results_matches_df = self.results_matches_df.drop(drop_columns, axis=1)
 
 	def _map_teams(self,team_df):
 
-		my_df = self.results_matches_df
+		my_df = self._results_matches_df
 		team_names = team_df.set_index('id').name
 
 		my_df['team_a'] = my_df.team_a.map(team_names)
@@ -32,7 +32,7 @@ class Results:
 
 	def prepare_gameweek_stats(self):
 
-		gw_stats_df = self.results_matches_df[['event','team_h_score','team_a_score']].copy()
+		gw_stats_df = self._results_matches_df[['event','team_h_score','team_a_score']].copy()
 		gw_stats_df.dropna(inplace=True)
 
 		gw_stats_df['home_team_cs'] = False
@@ -52,7 +52,7 @@ class Results:
 
 	def prepare_goal_stats(self):
 
-		goals_df = self.results_matches_df[['event','team_h_score','team_a_score']].copy()
+		goals_df = self._results_matches_df[['event','team_h_score','team_a_score']].copy()
 		goals_df.dropna(inplace=True)
 
 		# Sum up: home goals, away goals
@@ -62,7 +62,7 @@ class Results:
 
 	def prepare_clean_sheet_stats(self):
 
-		clean_sheets_df = self.results_matches_df[['event','team_h_score','team_a_score']].copy()
+		clean_sheets_df = self._results_matches_df[['event','team_h_score','team_a_score']].copy()
 		clean_sheets_df.dropna(inplace=True)
 
 		clean_sheets_df['home_team_cs'] = False
@@ -80,7 +80,7 @@ class Results:
 		future_matches_num = 4
 		column_list = ['event','team_h','team_h_difficulty','team_a','team_a_difficulty']
 
-		future_opp_score_df = self.results_matches_df[column_list].copy()
+		future_opp_score_df = self._results_matches_df[column_list].copy()
 
 		event_col = future_opp_score_df['event']
 
@@ -107,7 +107,7 @@ class Results:
 		lower_bound = current_gameweek_num - previous_matches_num
 
 		# Filter columns and drop null values
-		results_matches_df = self.results_matches_df[['event','team_h','team_h_score','team_a','team_a_score']].copy()
+		results_matches_df = self._results_matches_df[['event','team_h','team_h_score','team_a','team_a_score']].copy()
 		results_matches_df.dropna(inplace=True)
 
 		# Filter from lower to current gameweek
