@@ -158,9 +158,10 @@ class Results:
 
 		return team_form_df
 
-	def _return_empty_dict_player(self):
+	def _return_empty_dict_player(self, id):
 
 		return {
+			'id': id,
 			'goals': 0,
 			'assists': 0,
 			'bonus': 0
@@ -193,7 +194,7 @@ class Results:
 				goals_scored = scorer['value']
 
 				if player not in in_form_players_dict:
-					in_form_players_dict[player] = self._return_empty_dict_player()
+					in_form_players_dict[player] = self._return_empty_dict_player(player)
 
 				in_form_players_dict[player]['goals'] += goals_scored
 
@@ -203,7 +204,7 @@ class Results:
 				goals_assist = assister['value']
 
 				if player not in in_form_players_dict:
-					in_form_players_dict[player] = self._return_empty_dict_player()
+					in_form_players_dict[player] = self._return_empty_dict_player(player)
 
 				in_form_players_dict[player]['assists'] += goals_assist
 
@@ -213,11 +214,12 @@ class Results:
 				bonus_points = bonus_player['value']
 
 				if player not in in_form_players_dict:
-					in_form_players_dict[player] = self._return_empty_dict_player()
+					in_form_players_dict[player] = self._return_empty_dict_player(player)
 
 				in_form_players_dict[player]['bonus'] += bonus_points
 
 		inform_stats_df = pd.DataFrame.from_dict(in_form_players_dict, orient='index')
+
 		inform_stats_df['involved'] = inform_stats_df['goals'] + inform_stats_df['assists']
 
 		# Filter out players who are not so involved
@@ -225,9 +227,12 @@ class Results:
 		inform_stats_df.sort_values('involved',ascending=False,inplace=True)
 
 		# Filter out players who do not have a lot of bonuses
-		bonus_stats_only_df = inform_stats_df[['bonus']].copy()
+		bonus_stats_only_df = inform_stats_df[['id', 'bonus']].copy()
 		bonus_stats_only_df.sort_values('bonus',ascending=False,inplace=True)
 		bonus_stats_only_df.query('bonus > 3', inplace=True)
+
+		inform_stats_df.reset_index(drop=True,inplace=True)
+		bonus_stats_only_df.reset_index(drop=True,inplace=True)
 
 
 		return inform_stats_df, bonus_stats_only_df
