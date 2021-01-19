@@ -169,6 +169,10 @@ class Results:
 		results_matches_df = results_matches_df[(event_col <= current_gameweek_num) & (event_col > lower_bound)]
 
 		#results_matches_df.dropna(inplace=True)
+		for stat in results_matches_df['stats']:
+
+			if len(stat) == 0:
+				continue
 
 		return results_matches_df['stats']
 
