@@ -318,3 +318,9 @@ class Graphs:
 			'goals_scored_concded_fig': self._get_goals_scored_conceded(team_form_df[['goals_for','goals_against','total_goals_involved']].copy()),
 			'clean_sheets_fig': self._get_clean_sheets_form(team_form_df[['clean_sheets_num']].copy())
 		}
+
+	def get_stats_about_players(self):
+
+		prev_stats_df, bonus_stats_df = self._results_obj.find_stats_previous_matches(self._gameweek_number, self._player_details)
+
+		return None
