@@ -167,7 +167,7 @@ class Results:
 			'bonus': 0
 		}
 
-	def find_stats_previous_matches(self, current_gameweek_num):
+	def find_stats_previous_matches(self, current_gameweek_num, player_details):
 
 		previous_matches_num = 4
 		lower_bound = current_gameweek_num - previous_matches_num
@@ -224,15 +224,22 @@ class Results:
 
 		# Filter out players who are not so involved
 		inform_stats_df.query('involved > 1', inplace=True)
-		inform_stats_df.sort_values('involved',ascending=False,inplace=True)
 
 		# Filter out players who do not have a lot of bonuses
 		bonus_stats_only_df = inform_stats_df[['id', 'bonus']].copy()
-		bonus_stats_only_df.sort_values('bonus',ascending=False,inplace=True)
 		bonus_stats_only_df.query('bonus > 3', inplace=True)
 
+		# Reset index to get the ID
 		inform_stats_df.reset_index(drop=True,inplace=True)
 		bonus_stats_only_df.reset_index(drop=True,inplace=True)
+
+		# Merge with player dataframe to find names
+		inform_stats_df = pd.merge(player_details, inform_stats_df, on='id')
+		bonus_stats_only_df = pd.merge(player_details, bonus_stats_only_df, on='id')
+
+		# Sort in descending order
+		inform_stats_df.sort_values('involved',ascending=False,inplace=True)
+		bonus_stats_only_df.sort_values('bonus',ascending=False,inplace=True)
 
 
 		return inform_stats_df, bonus_stats_only_df
