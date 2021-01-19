@@ -322,5 +322,47 @@ class Graphs:
 	def get_stats_about_players(self):
 
 		prev_stats_df, bonus_stats_df = self._results_obj.find_stats_previous_matches(self._gameweek_number, self._player_details)
+		
+		inform_stats_fig = go.Figure()
+
+		inform_stats_fig.add_trace(
+			go.Bar(
+				y=prev_stats_df['name'],
+				x=prev_stats_df['goals'],
+				name='Goals scored',
+				orientation='h',
+				texttemplate="%{x}",
+				textposition="inside",
+				textangle=0,
+				textfont_color='white',
+				hoverinfo='none',
+				marker=dict(
+				color='rgba(13, 142, 6, 0.81)',
+				line=dict(color='rgba(13, 142, 6, 1)', width=2))
+			)
+		)
+
+		inform_stats_fig.add_trace(
+			go.Bar(
+				y=prev_stats_df['name'],
+				x=prev_stats_df['assists'],
+				name='Assists',
+				orientation='h',
+				texttemplate="%{x}",
+				textposition="inside",
+				textangle=0,
+				textfont_color='white',
+				hoverinfo='none',
+				marker=dict(
+				color='rgba(142, 6, 6, 0.81)',
+				line=dict(color='rgba(142, 6, 6, 1)', width=2))
+			)
+		)
+
+		inform_stats_fig.update_layout(
+			barmode='stack',
+			title="Goals and assists (Last 4 matches)",
+			height = 700
+		)
 
 		return None
