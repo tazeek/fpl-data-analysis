@@ -322,7 +322,7 @@ class Graphs:
 	def get_stats_about_players(self):
 
 		prev_stats_df, bonus_stats_df = self._results_obj.find_stats_previous_matches(self._gameweek_number, self._player_details)
-		
+
 		inform_stats_fig = go.Figure()
 
 		inform_stats_fig.add_trace(
@@ -365,4 +365,25 @@ class Graphs:
 			height = 700
 		)
 
-		return None
+		bonus_points_fig = go.Figure()
+
+		bonus_points_fig.add_trace(
+			go.Bar(
+				y=bonus_stats_df['name'],
+				x=bonus_stats_df['bonus'],
+				orientation='h'
+			)
+		)
+
+		bonus_points_fig.update_layout(
+			title="Total bonuses in last 4 matches (at least 3)",
+			height = 700
+		)
+
+		bonus_points_fig.update_xaxes(
+			title_text = "Number",
+			tickangle = 45,
+			title_standoff = 25
+		)
+
+		return inform_stats_fig, bonus_points_fig
