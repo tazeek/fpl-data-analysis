@@ -158,6 +158,14 @@ class Results:
 
 		return team_form_df
 
+	def _return_empty_dict_player(self):
+
+		return {
+			'goals': 0,
+			'assists': 0,
+			'bonus': 0
+		}
+
 	def find_stats_previous_matches(self, current_gameweek_num):
 
 		previous_matches_num = 4
@@ -168,7 +176,8 @@ class Results:
 		event_col = results_matches_df['event']
 		results_matches_df = results_matches_df[(event_col <= current_gameweek_num) & (event_col > lower_bound)]
 
-		#results_matches_df.dropna(inplace=True)
+		in_form_players_dict = {}
+
 		for stat in results_matches_df['stats']:
 
 			if len(stat) == 0:
@@ -180,13 +189,33 @@ class Results:
 
 			# For goals scored
 			for scorer in goals_scored_json['a'] + goals_scored_json['h']:
-				pass
+				player = scorer['element']
+				goals_scored = scorer['value']
 
+				if player not in in_form_players_dict:
+					in_form_players_dict[player] = self._return_empty_dict_player()
+
+				in_form_players_dict[player]['goals'] += goals_scored
+
+			# For assists
 			for assister in goals_assists_json['a'] + goals_assists_json['h']:
-				pass
+				player = assister['element']
+				goals_assist = assister['value']
 
+				if player not in in_form_players_dict:
+					in_form_players_dict[player] = self._return_empty_dict_player()
+
+				in_form_players_dict[player]['assists'] += goals_assist
+
+			# For bonus points
 			for bonus_player in bonus_points_json['a'] + bonus_points_json['h']:
-				pass
+				player = bonus_player['element']
+				bonus_points = bonus_player['value']
+
+				if player not in in_form_players_dict:
+					in_form_players_dict[player] = self._return_empty_dict_player()
+
+				in_form_players_dict[player]['bonus'] += bonus_points
 
 		return results_matches_df['stats']
 
