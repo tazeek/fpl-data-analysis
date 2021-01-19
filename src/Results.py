@@ -173,10 +173,20 @@ class Results:
 
 			if len(stat) == 0:
 				continue
-				
+
 			goals_scored_json = stat[0]
 			goals_assists_json = stat[1]
 			bonus_points_json = stat[8]
+
+			# For goals scored
+			for scorer in goals_scored_json['a'] + goals_scored_json['h']:
+				pass
+
+			for assister in goals_assists_json['a'] + goals_assists_json['h']:
+				pass
+
+			for bonus_player in bonus_points_json['a'] + bonus_points_json['h']:
+				pass
 
 		return results_matches_df['stats']
 
