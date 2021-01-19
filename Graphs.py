@@ -13,6 +13,9 @@ class Graphs:
 		self._teams_info = self._api_connector.get_teams_information()
 		self._gameweek_obj = self._api_connector.get_events_gameweeks()
 
+		self._player_obj = self._api_connector.get_player_information()
+		self._player_details = self._player_obj.get_players_stats()[['name','id']]
+
 		self._results_obj = Results(self._teams_info)
 		self._gameweek_results = self._results_obj.prepare_gameweek_stats()
 
@@ -315,3 +318,72 @@ class Graphs:
 			'goals_scored_concded_fig': self._get_goals_scored_conceded(team_form_df[['goals_for','goals_against','total_goals_involved']].copy()),
 			'clean_sheets_fig': self._get_clean_sheets_form(team_form_df[['clean_sheets_num']].copy())
 		}
+
+	def get_stats_about_players(self):
+
+		prev_stats_df, bonus_stats_df = self._results_obj.find_stats_previous_matches(self._gameweek_number, self._player_details)
+
+		inform_stats_fig = go.Figure()
+
+		inform_stats_fig.add_trace(
+			go.Bar(
+				y=prev_stats_df['name'],
+				x=prev_stats_df['goals'],
+				name='Goals scored',
+				orientation='h',
+				texttemplate="%{x}",
+				textposition="inside",
+				textangle=0,
+				textfont_color='white',
+				hoverinfo='none',
+				marker=dict(
+				color='rgba(13, 142, 6, 0.81)',
+				line=dict(color='rgba(13, 142, 6, 1)', width=2))
+			)
+		)
+
+		inform_stats_fig.add_trace(
+			go.Bar(
+				y=prev_stats_df['name'],
+				x=prev_stats_df['assists'],
+				name='Assists',
+				orientation='h',
+				texttemplate="%{x}",
+				textposition="inside",
+				textangle=0,
+				textfont_color='white',
+				hoverinfo='none',
+				marker=dict(
+				color='rgba(142, 6, 6, 0.81)',
+				line=dict(color='rgba(142, 6, 6, 1)', width=2))
+			)
+		)
+
+		inform_stats_fig.update_layout(
+			barmode='stack',
+			title="Goals and assists (Last 4 matches)",
+			height = 700
+		)
+
+		bonus_points_fig = go.Figure()
+
+		bonus_points_fig.add_trace(
+			go.Bar(
+				y=bonus_stats_df['name'],
+				x=bonus_stats_df['bonus'],
+				orientation='h'
+			)
+		)
+
+		bonus_points_fig.update_layout(
+			title="Total bonuses in last 4 matches (at least 3)",
+			height = 700
+		)
+
+		bonus_points_fig.update_xaxes(
+			title_text = "Number",
+			tickangle = 45,
+			title_standoff = 25
+		)
+
+		return inform_stats_fig, bonus_points_fig
