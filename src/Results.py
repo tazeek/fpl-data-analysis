@@ -173,6 +173,10 @@ class Results:
 
 			if len(stat) == 0:
 				continue
+				
+			goals_scored_json = stat[0]
+			goals_assists_json = stat[1]
+			bonus_points_json = stat[8]
 
 		return results_matches_df['stats']
 
