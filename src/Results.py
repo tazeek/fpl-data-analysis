@@ -217,5 +217,8 @@ class Results:
 
 				in_form_players_dict[player]['bonus'] += bonus_points
 
-		return results_matches_df['stats']
+		inform_stats_df = pd.DataFrame.from_dict(in_form_players_dict, orient='index')
+		inform_stats_df['involved'] = inform_stats_df['goals'] + inform_stats_df['assists']
+
+		return inform_stats_df
 
