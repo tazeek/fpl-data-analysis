@@ -18,7 +18,7 @@ class Results:
 
 	def _drop_columns(self, drop_columns):
 
-		self._results_matches_df = self.results_matches_df.drop(drop_columns, axis=1)
+		self._results_matches_df = self._results_matches_df.drop(drop_columns, axis=1)
 
 	def _map_teams(self,team_df):
 
@@ -157,3 +157,18 @@ class Results:
 		team_form_df['total_goals_involved'] = team_form_df['goals_for'] + team_form_df['goals_against']
 
 		return team_form_df
+
+	def find_stats_previous_matches(self, current_gameweek_num):
+
+		previous_matches_num = 4
+		lower_bound = current_gameweek_num - previous_matches_num
+
+		# Filter columns and drop null values
+		results_matches_df = self._results_matches_df.copy()
+		event_col = results_matches_df['event']
+		results_matches_df = results_matches_df[(event_col <= current_gameweek_num) & (event_col > lower_bound)]
+
+		#results_matches_df.dropna(inplace=True)
+
+		return results_matches_df['stats']
+
