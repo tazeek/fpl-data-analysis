@@ -15,6 +15,7 @@ def generate_layout():
 	    ])
 
 	team_form = graphs_obj.get_info_about_teams_form()
+	inform_stats_fig, bonus_points_fig = graphs_obj.get_stats_about_players()
 
 	return html.Div([
 		dcc.Graph(id='fdr-display',figure=graphs_obj.get_future_fdr_scores_fig()),
