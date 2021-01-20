@@ -28,6 +28,18 @@ def generate_layout():
 			config={'displayModeBar': False, 'staticPlot': True}
 		),
 
+		dcc.Graph(
+			id='inform-stats-fig',
+			figure=inform_stats_fig,
+			config={'displayModeBar': False, 'staticPlot': True}
+		),
+
+		dcc.Graph(
+			id='bonus-points-fig',
+			figure=bonus_points_fig,
+			config={'displayModeBar': False, 'staticPlot': True}
+		),
+
 		dcc.Graph(id='clean-sheet-involvements',
 			figure=team_form['clean_sheets_fig'],
 			config={'displayModeBar': False, 'staticPlot': True}
