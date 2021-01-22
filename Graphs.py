@@ -392,4 +392,29 @@ class Graphs:
 
 		player_stats_picked = self._player_obj.get_popular_players(20)
 
-		return None
+		fig = go.Figure()
+
+		fig.add_trace(
+			go.Bar(
+				y=player_stats['name'],
+				x=player_stats['selected_by_percent'],
+				orientation='h'
+			)
+		)
+
+		fig.update_layout(
+			title="Top popular players",
+			height = 700
+		)
+
+		fig.update_xaxes(
+			title_text = "% selected by",
+			tickangle = 45,
+			title_standoff = 25
+		)
+
+		fig.update_yaxes(
+			autorange="reversed"
+		)
+
+		return fig
