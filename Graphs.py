@@ -387,3 +387,9 @@ class Graphs:
 		)
 
 		return inform_stats_fig, bonus_points_fig
+
+	def get_popular_players(self):
+
+		player_stats_picked = self._player_obj.get_players_stats()[['name','selected_by_percent']]
+
+		return None
