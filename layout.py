@@ -23,6 +23,8 @@ def generate_layout():
 		dcc.Graph(id='fpl-scores-stats',figure=graphs_obj.get_fpl_scores_stats()),
 		dcc.Graph(id='fpl-transfers-stats',figure=graphs_obj.get_transfers_stats()),
 
+		dcc.Graph(id='most-selected-transfers',figure=graphs_obj.get_popular_players()),
+
 		dcc.Graph(id='team-involvements-prev',
 			figure=team_form['goals_scored_concded_fig'],
 			config={'displayModeBar': False, 'staticPlot': True}

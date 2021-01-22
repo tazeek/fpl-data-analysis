@@ -396,8 +396,8 @@ class Graphs:
 
 		fig.add_trace(
 			go.Bar(
-				y=player_stats['name'],
-				x=player_stats['selected_by_percent'],
+				y=player_stats_picked['name'],
+				x=player_stats_picked['selected_by_percent'],
 				orientation='h'
 			)
 		)
