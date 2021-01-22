@@ -12,6 +12,7 @@ class Player:
 		df = self._players_df
 		df['name'] = df['first_name'] + ' ' + df['second_name']
 		df['now_cost'] = df['now_cost'] / 10
+		df['selected_by_percent'] = df['selected_by_percent'].astype('float')
 
 		column_list = ['name','team','id','element_type',
             'selected_by_percent','now_cost','goals_scored',
@@ -24,3 +25,11 @@ class Player:
 	def get_players_stats(self):
 
 		return self._players_df
+
+	def get_popular_players(self, count):
+
+		players_df = self._players_df.copy()[['name','selected_by_percent']]
+		players_df.sort_values('selected_by_percent',ascending=False,inplace=True)
+
+		return players_df.head(count)
+

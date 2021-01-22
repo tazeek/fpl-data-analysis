@@ -390,6 +390,6 @@ class Graphs:
 
 	def get_popular_players(self):
 
-		player_stats_picked = self._player_obj.get_players_stats()[['name','selected_by_percent']]
+		player_stats_picked = self._player_obj.get_popular_players(20)
 
 		return None
