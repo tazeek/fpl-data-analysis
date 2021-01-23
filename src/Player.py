@@ -11,7 +11,10 @@ class Player:
 
 		df = self._players_df
 		df['name'] = df['first_name'] + ' ' + df['second_name']
+
+		# Cost is divided to reflect true FPL price
 		df['now_cost'] = df['now_cost'] / 10
+		
 		df['selected_by_percent'] = df['selected_by_percent'].astype('float')
 
 		column_list = ['name','team','id','element_type',
@@ -22,10 +25,6 @@ class Player:
 
 		return None
 
-	def get_players_stats(self):
-
-		return self._players_df
-
 	def get_player_names(self):
 
 		return self._players_df[['name','id']].copy()
@@ -35,5 +34,5 @@ class Player:
 		players_df = self._players_df[['name','selected_by_percent']].copy()
 		players_df.sort_values('selected_by_percent',ascending=False,inplace=True)
 
-		return players_df.head(count)
+		return players_df[:count]
 
