@@ -28,10 +28,6 @@ class Results:
 
 		return None
 
-	def _slice_lower_bound():
-
-	def _slice_upper_bound():
-
 	def prepare_gameweek_stats(self):
 
 		gw_stats_df = self._results_matches_df.copy()
