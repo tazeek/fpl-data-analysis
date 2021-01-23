@@ -28,9 +28,13 @@ class Results:
 
 		return None
 
+	def _slice_lower_bound():
+
+	def _slice_upper_bound():
+
 	def prepare_gameweek_stats(self):
 
-		gw_stats_df = self._results_matches_df[['event','team_h_score','team_a_score']].copy()
+		gw_stats_df = self._results_matches_df.copy()
 		gw_stats_df.dropna(inplace=True)
 
 		# Prepare stats for clean sheet
@@ -52,9 +56,7 @@ class Results:
 
 	def get_future_opponents_stats(self):
 
-		column_list = ['event','team_h','team_h_difficulty','team_a','team_a_difficulty']
-
-		future_opp_score_df = self._results_matches_df[column_list].copy()
+		future_opp_score_df = self._results_matches_df.copy()
 
 		event_col = future_opp_score_df['event']
 
@@ -78,7 +80,7 @@ class Results:
 	def find_previous_match_results(self):
 
 		# Filter columns and drop null values
-		results_matches_df = self._results_matches_df[['event','team_h','team_h_score','team_a','team_a_score']].copy()
+		results_matches_df = self._results_matches_df.copy()
 		results_matches_df.dropna(inplace=True)
 
 		# Filter from lower to current gameweek
@@ -111,11 +113,8 @@ class Results:
 			home_score = results['team_h_score']
 			away_score = results['team_a_score']
 
-			if home_score == 0:
-				team_form_dict[away_team]['clean_sheets_num'] += 1
-			
-			if away_score == 0:
-				team_form_dict[home_team]['clean_sheets_num'] += 1
+			team_form_dict[away_team]['clean_sheets_num'] += 1 if home_score == 0 else 0
+			team_form_dict[home_team]['clean_sheets_num'] += 1 if away_score == 0 else 0
 
 			team_form_dict[home_team]['goals_for'] += home_score
 			team_form_dict[home_team]['goals_against'] += away_score
