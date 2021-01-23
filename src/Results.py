@@ -36,12 +36,14 @@ class Results:
 		gw_stats_df = self._results_matches_df[['event','team_h_score','team_a_score']].copy()
 		gw_stats_df.dropna(inplace=True)
 
+		# Prepare stats for clean sheet
 		gw_stats_df['home_team_cs'] = False
 		gw_stats_df['away_team_cs'] = False
 
 		gw_stats_df.loc[gw_stats_df['team_h_score'] == 0, 'away_team_cs'] = True
 		gw_stats_df.loc[gw_stats_df['team_a_score'] == 0, 'home_team_cs'] = True
 
+		# Count number of goals scored
 		gw_stats_df = gw_stats_df.groupby(['event']).sum()
 
 		gw_stats_df.rename(columns = {
@@ -50,31 +52,6 @@ class Results:
 		}, inplace = True)
 
 		return gw_stats_df
-
-	def prepare_goal_stats(self):
-
-		goals_df = self._results_matches_df[['event','team_h_score','team_a_score']].copy()
-		goals_df.dropna(inplace=True)
-
-		# Sum up: home goals, away goals
-		goals_df = goals_df.groupby(['event']).sum()
-
-		return goals_df
-
-	def prepare_clean_sheet_stats(self):
-
-		clean_sheets_df = self._results_matches_df[['event','team_h_score','team_a_score']].copy()
-		clean_sheets_df.dropna(inplace=True)
-
-		clean_sheets_df['home_team_cs'] = False
-		clean_sheets_df['away_team_cs'] = False
-
-		clean_sheets_df.loc[clean_sheets_df['team_h_score'] == 0, 'away_team_cs'] = True
-		clean_sheets_df.loc[clean_sheets_df['team_a_score'] == 0, 'home_team_cs'] = True
-
-		clean_sheets_df = clean_sheets_df.groupby(['event']).sum()
-
-		return clean_sheets_df
 
 	def get_future_opponents_stats(self):
 
