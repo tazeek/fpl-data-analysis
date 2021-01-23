@@ -14,17 +14,16 @@ class Graphs:
 		self._teams_info = self._api_connector.get_teams_information()
 		self._gameweek_obj = self._api_connector.get_events_gameweeks()
 		self._player_obj = self._api_connector.get_player_information()
-
-		self._results_obj = Results(self._teams_info)
-		self._gameweek_results = self._results_obj.prepare_gameweek_stats()
-
 		self._gameweek_number = self._gameweek_obj.get_current_gameweek()
+
+		self._results_obj = Results(self._teams_info, self._gameweek_number)
+		self._gameweek_results = self._results_obj.prepare_gameweek_stats()
 
 		self._x_values = [i for i in range(1, self._gameweek_number + 1)]
 
 	def get_future_fdr_scores_fig(self):
 
-		future_opp_score_df = self._results_obj.get_future_opponents_stats(self._gameweek_number)
+		future_opp_score_df = self._results_obj.get_future_opponents_stats()
 
 		fig = go.Figure(
 			go.Bar(
@@ -299,7 +298,7 @@ class Graphs:
 
 	def get_info_about_teams_form(self):
 
-		team_form_df = self._results_obj.find_previous_match_results(self._gameweek_number)
+		team_form_df = self._results_obj.find_previous_match_results()
 
 		return {
 			'goals_scored_concded_fig': self._get_goals_scored_conceded(team_form_df[['goals_for','goals_against','total_goals_involved']].copy()),
@@ -310,7 +309,7 @@ class Graphs:
 
 		player_details = self._player_obj.get_player_names()
 
-		prev_stats_df, bonus_stats_df = self._results_obj.find_stats_previous_matches(self._gameweek_number, player_details)
+		prev_stats_df, bonus_stats_df = self._results_obj.find_stats_previous_matches(player_details)
 
 		inform_stats_fig = go.Figure()
 

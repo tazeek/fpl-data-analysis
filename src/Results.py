@@ -4,7 +4,7 @@ import requests
 
 class Results:
 
-	def __init__(self, team_obj):
+	def __init__(self, team_obj, gameweek_num):
 
 		url = 'https://fantasy.premierleague.com/api/fixtures/'
 		filter_columns = ['code','finished_provisional','id','kickoff_time',
@@ -14,6 +14,9 @@ class Results:
 
 		self._results_matches_df =  pd.DataFrame(r.json())
 		self._results_matches_df.drop(filter_columns, axis=1, inplace=True)
+		self._gameweek_num = gameweek_num
+		self._window_num = 4
+		
 		self._map_teams(team_obj.return_dataframe_obj())
 
 	def _map_teams(self,team_df):
@@ -25,6 +28,8 @@ class Results:
 		my_df['team_h'] = my_df.team_h.map(team_names)
 
 		self.results_matches_df = my_df
+
+		return None
 
 	def prepare_gameweek_stats(self):
 
@@ -71,17 +76,16 @@ class Results:
 
 		return clean_sheets_df
 
-	def get_future_opponents_stats(self,current_gameweek_num):
+	def get_future_opponents_stats(self):
 
-		future_matches_num = 4
 		column_list = ['event','team_h','team_h_difficulty','team_a','team_a_difficulty']
 
 		future_opp_score_df = self._results_matches_df[column_list].copy()
 
 		event_col = future_opp_score_df['event']
 
-		upper_bound = current_gameweek_num + future_matches_num
-		future_opp_score_df = future_opp_score_df[(event_col > current_gameweek_num) & (event_col <= upper_bound)]
+		upper_bound = self._gameweek_num + self._window_num
+		future_opp_score_df = future_opp_score_df[(event_col > self._gameweek_num) & (event_col <= upper_bound)]
 
 		home_teams_df = future_opp_score_df[['event','team_h','team_h_difficulty']].copy()
 		away_teams_df = future_opp_score_df[['event','team_a','team_a_difficulty']].copy()
@@ -97,10 +101,7 @@ class Results:
 
 		return overall_df.sort_values('difficulty')
 
-	def find_previous_match_results(self, current_gameweek_num):
-
-		previous_matches_num = 4
-		lower_bound = current_gameweek_num - previous_matches_num
+	def find_previous_match_results(self):
 
 		# Filter columns and drop null values
 		results_matches_df = self._results_matches_df[['event','team_h','team_h_score','team_a','team_a_score']].copy()
@@ -108,7 +109,8 @@ class Results:
 
 		# Filter from lower to current gameweek
 		event_col = results_matches_df['event']
-		results_matches_df = results_matches_df[(event_col <= current_gameweek_num) & (event_col > lower_bound)]
+		lower_bound = self._gameweek_num - self._window_num
+		results_matches_df = results_matches_df[(event_col <= self._gameweek_num) & (event_col > lower_bound)]
 
 		# Convert to list of dictionary and create the dictionary for goals stats
 		results_matches_dict = results_matches_df.to_dict('records')
@@ -163,15 +165,14 @@ class Results:
 			'bonus': 0
 		}
 
-	def find_stats_previous_matches(self, current_gameweek_num, player_details):
-
-		previous_matches_num = 4
-		lower_bound = current_gameweek_num - previous_matches_num
+	def find_stats_previous_matches(self, player_details):
 
 		# Filter columns and drop null values
 		results_matches_df = self._results_matches_df.copy()
 		event_col = results_matches_df['event']
-		results_matches_df = results_matches_df[(event_col <= current_gameweek_num) & (event_col > lower_bound)]
+
+		lower_bound = self._gameweek_num - self._window_num
+		results_matches_df = results_matches_df[(event_col <= self._gameweek_num) & (event_col > lower_bound)]
 
 		in_form_players_dict = {}
 
