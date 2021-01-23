@@ -15,8 +15,6 @@ class Graphs:
 		self._gameweek_obj = self._api_connector.get_events_gameweeks()
 		self._player_obj = self._api_connector.get_player_information()
 
-		self._player_details = self._player_obj.get_players_stats()[['name','id']]
-
 		self._results_obj = Results(self._teams_info)
 		self._gameweek_results = self._results_obj.prepare_gameweek_stats()
 
@@ -310,7 +308,9 @@ class Graphs:
 
 	def get_stats_about_players(self):
 
-		prev_stats_df, bonus_stats_df = self._results_obj.find_stats_previous_matches(self._gameweek_number, self._player_details)
+		player_details = self._player_obj.get_player_names()
+
+		prev_stats_df, bonus_stats_df = self._results_obj.find_stats_previous_matches(self._gameweek_number, player_details)
 
 		inform_stats_fig = go.Figure()
 

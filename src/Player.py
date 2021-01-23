@@ -26,9 +26,13 @@ class Player:
 
 		return self._players_df
 
+	def get_player_names(self):
+
+		return self._players_df[['name','id']].copy()
+
 	def get_popular_players(self, count):
 
-		players_df = self._players_df.copy()[['name','selected_by_percent']]
+		players_df = self._players_df[['name','selected_by_percent']].copy()
 		players_df.sort_values('selected_by_percent',ascending=False,inplace=True)
 
 		return players_df.head(count)
