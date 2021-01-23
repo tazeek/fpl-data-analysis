@@ -10,10 +10,11 @@ class Graphs:
 	def __init__(self):
 
 		self._api_connector = APIConnector()
+
 		self._teams_info = self._api_connector.get_teams_information()
 		self._gameweek_obj = self._api_connector.get_events_gameweeks()
-
 		self._player_obj = self._api_connector.get_player_information()
+		
 		self._player_details = self._player_obj.get_players_stats()[['name','id']]
 
 		self._results_obj = Results(self._teams_info)
