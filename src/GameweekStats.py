@@ -35,7 +35,7 @@ class GameweekStats:
 	def fetch_scores(self):
 
 		# Fetch the highest and average scores of the week
-		return self.events_df[['id','average_entry_score','highest_score']].copy()
+		return self.events_df[['id','average_entry_score']].copy()
 
 	def fetch_chip_stats(self):
 

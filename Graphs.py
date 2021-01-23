@@ -165,22 +165,12 @@ class Graphs:
 	def get_fpl_scores_stats(self):
 
 		fig = go.Figure()
-		gameweek_stats = self._gameweek_obj
 
-		scores_df = gameweek_stats.fetch_scores()
-
-		fig.add_trace(
-			go.Scatter(
-				x=scores_df['id'], 
-				y=scores_df['highest_score'],
-				mode='lines+markers',
-				name='Highest Score'
-			)
-		)
+		scores_df = self._gameweek_obj.fetch_scores()
 
 		fig.add_trace(
 			go.Scatter(
-				x=scores_df['id'], 
+				x=self._x_values, 
 				y=scores_df['average_entry_score'],
 				mode='lines+markers',
 				name='Average Score'
@@ -188,14 +178,14 @@ class Graphs:
 		)
 
 		fig.update_layout(
-			title="Gameweek History Scores",
+			title="Average scores per gameweek",
 			hovermode="x"
 		)
 
 		fig.update_xaxes(
 			title_text = "Gameweek",
 			tickangle = 45,
-			nticks = self._gameweek_number + 1,
+			nticks = self._gameweek_number,
 			title_standoff = 25
 		)
 
@@ -215,7 +205,7 @@ class Graphs:
 
 		fig.add_trace(
 			go.Scatter(
-				x=transfers_df['id'], 
+				x=self._x_values, 
 				y=transfers_df['transfers_made'],
 				mode='lines+markers',
 				hovertemplate='Total: %{y}'
