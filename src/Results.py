@@ -4,7 +4,7 @@ import requests
 
 class Results:
 
-	def __init__(self, team_obj, gameweek_num):
+	def __init__(self, team_info_df, gameweek_num):
 
 		url = 'https://fantasy.premierleague.com/api/fixtures/'
 		filter_columns = ['code','finished_provisional','id','kickoff_time',
@@ -17,17 +17,14 @@ class Results:
 		self._gameweek_num = gameweek_num
 		self._window_num = 4
 		
-		self._map_teams(team_obj.return_dataframe_obj())
+		self._map_teams(team_info_df)
 
 	def _map_teams(self,team_df):
 
-		my_df = self._results_matches_df
 		team_names = team_df.set_index('id').name
 
-		my_df['team_a'] = my_df.team_a.map(team_names)
-		my_df['team_h'] = my_df.team_h.map(team_names)
-
-		self.results_matches_df = my_df
+		for team in ['team_a','team_h']:
+			self._results_matches_df[team] = self._results_matches_df[team].map(team_names)
 
 		return None
 
@@ -90,11 +87,9 @@ class Results:
 		results_matches_df = results_matches_df[(event_col <= self._gameweek_num) & (event_col > lower_bound)]
 
 		# Convert to list of dictionary and create the dictionary for goals stats
-		results_matches_dict = results_matches_df.to_dict('records')
-
 		team_form_dict = {}
 
-		for results in results_matches_dict:
+		for results in results_matches_df.to_dict('records'):
 
 			home_team = results['team_h']
 			away_team = results['team_a']
@@ -118,7 +113,8 @@ class Results:
 
 			if home_score == 0:
 				team_form_dict[away_team]['clean_sheets_num'] += 1
-			elif away_score == 0:
+			
+			if away_score == 0:
 				team_form_dict[home_team]['clean_sheets_num'] += 1
 
 			team_form_dict[home_team]['goals_for'] += home_score

@@ -16,7 +16,7 @@ class Graphs:
 		self._player_obj = self._api_connector.get_player_information()
 		self._gameweek_number = self._gameweek_obj.get_current_gameweek()
 
-		self._results_obj = Results(self._teams_info, self._gameweek_number)
+		self._results_obj = Results(self._teams_info.return_dataframe_obj(), self._gameweek_number)
 		self._gameweek_results = self._results_obj.prepare_gameweek_stats()
 
 		self._x_values = [i for i in range(1, self._gameweek_number + 1)]
