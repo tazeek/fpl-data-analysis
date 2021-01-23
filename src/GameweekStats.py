@@ -11,29 +11,31 @@ class GameweekStats:
 		'most_transferred_in','top_element','top_element_info','transfers_made',
 		'most_captained','most_vice_captained','is_current']
 
+		self._current_gameweek = self._find_current_gameweek()
 		self._filter(useful_columns)
 
-	def total_gameweeks(self):
-		return len(self.events_df)
-
-	def current_gameweek_number(self):
+	def _find_current_gameweek(self):
 		
-		events_df = self.events_df
-		index_num = events_df[events_df['is_current']==True].index.values
-		return index_num[0] + 1
+		index_num = self.events_df[self.events_df['is_current']==True].index.values
+		return int(index_num[0] + 1)
 
 	def _filter(self, filtered_columns):
 
 		# Keep the columns that are only needed
 		self.events_df = self.events_df[filtered_columns]
 
-		# The slicing will be done one gameweek less; hence, the "+1" is needed
-		self.events_df = self.events_df.iloc[: self.current_gameweek_number()]
+		# The slicing will be done one gameweek less
+		self.events_df = self.events_df[: self._current_gameweek]
+
+		return None
+
+	def get_current_gameweek(self):
+		return self._current_gameweek
 
 	def fetch_scores(self):
 
 		# Fetch the highest and average scores of the week
-		return self.events_df[['id','average_entry_score','highest_score']]
+		return self.events_df[['id','average_entry_score']].copy()
 
 	def fetch_chip_stats(self):
 
@@ -57,4 +59,4 @@ class GameweekStats:
 		return pd.DataFrame(chip_stats_list)
 
 	def fetch_transfers(self):
-		return self.events_df[['id','transfers_made']]
+		return self.events_df[['id','transfers_made']].copy()

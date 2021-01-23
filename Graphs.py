@@ -10,22 +10,20 @@ class Graphs:
 	def __init__(self):
 
 		self._api_connector = APIConnector()
+
 		self._teams_info = self._api_connector.get_teams_information()
 		self._gameweek_obj = self._api_connector.get_events_gameweeks()
-
 		self._player_obj = self._api_connector.get_player_information()
-		self._player_details = self._player_obj.get_players_stats()[['name','id']]
+		self._gameweek_number = self._gameweek_obj.get_current_gameweek()
 
-		self._results_obj = Results(self._teams_info)
+		self._results_obj = Results(self._teams_info.return_dataframe_obj(), self._gameweek_number)
 		self._gameweek_results = self._results_obj.prepare_gameweek_stats()
-
-		self._gameweek_number = self._gameweek_obj.current_gameweek_number().item() # convert int64 to int
 
 		self._x_values = [i for i in range(1, self._gameweek_number + 1)]
 
 	def get_future_fdr_scores_fig(self):
 
-		future_opp_score_df = self._results_obj.get_future_opponents_stats(self._gameweek_number)
+		future_opp_score_df = self._results_obj.get_future_opponents_stats()
 
 		fig = go.Figure(
 			go.Bar(
@@ -164,23 +162,12 @@ class Graphs:
 	def get_fpl_scores_stats(self):
 
 		fig = go.Figure()
-		gameweek_stats = self._gameweek_obj
 
-		scores_df = gameweek_stats.fetch_scores()
-		total_gameweeks_played = gameweek_stats.total_gameweeks()
+		scores_df = self._gameweek_obj.fetch_scores()
 
 		fig.add_trace(
 			go.Scatter(
-				x=scores_df['id'], 
-				y=scores_df['highest_score'],
-				mode='lines+markers',
-				name='Highest Score'
-			)
-		)
-
-		fig.add_trace(
-			go.Scatter(
-				x=scores_df['id'], 
+				x=self._x_values, 
 				y=scores_df['average_entry_score'],
 				mode='lines+markers',
 				name='Average Score'
@@ -188,14 +175,14 @@ class Graphs:
 		)
 
 		fig.update_layout(
-			title="Gameweek History Scores",
+			title="Average scores per gameweek",
 			hovermode="x"
 		)
 
 		fig.update_xaxes(
 			title_text = "Gameweek",
 			tickangle = 45,
-			nticks = self._gameweek_number + 1,
+			nticks = self._gameweek_number,
 			title_standoff = 25
 		)
 
@@ -210,13 +197,12 @@ class Graphs:
 	def get_transfers_stats(self):
 
 		fig = go.Figure()
-		gameweek_stats = self._gameweek_obj
 
-		transfers_df = gameweek_stats.fetch_transfers()
+		transfers_df = self._gameweek_obj.fetch_transfers()
 
 		fig.add_trace(
 			go.Scatter(
-				x=transfers_df['id'], 
+				x=self._x_values, 
 				y=transfers_df['transfers_made'],
 				mode='lines+markers',
 				hovertemplate='Total: %{y}'
@@ -230,7 +216,7 @@ class Graphs:
 		fig.update_xaxes(
 			title_text = "Gameweek",
 			tickangle = 45,
-			nticks = gameweek_stats.total_gameweeks() + 1,
+			nticks = self._gameweek_number,
 			title_standoff = 25
 		)
 
@@ -312,7 +298,7 @@ class Graphs:
 
 	def get_info_about_teams_form(self):
 
-		team_form_df = self._results_obj.find_previous_match_results(self._gameweek_number)
+		team_form_df = self._results_obj.find_previous_match_results()
 
 		return {
 			'goals_scored_concded_fig': self._get_goals_scored_conceded(team_form_df[['goals_for','goals_against','total_goals_involved']].copy()),
@@ -321,7 +307,9 @@ class Graphs:
 
 	def get_stats_about_players(self):
 
-		prev_stats_df, bonus_stats_df = self._results_obj.find_stats_previous_matches(self._gameweek_number, self._player_details)
+		player_details = self._player_obj.get_player_names()
+
+		prev_stats_df, bonus_stats_df = self._results_obj.find_stats_previous_matches(player_details)
 
 		inform_stats_fig = go.Figure()
 
