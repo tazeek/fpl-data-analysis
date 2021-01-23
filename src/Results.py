@@ -13,12 +13,8 @@ class Results:
 		r = requests.get(url)
 
 		self._results_matches_df =  pd.DataFrame(r.json())
-		self._drop_columns(filter_columns)
+		self._results_matches_df.drop(filter_columns, axis=1, inplace=True)
 		self._map_teams(team_obj.return_dataframe_obj())
-
-	def _drop_columns(self, drop_columns):
-
-		self._results_matches_df = self._results_matches_df.drop(drop_columns, axis=1)
 
 	def _map_teams(self,team_df):
 
