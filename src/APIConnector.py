@@ -38,6 +38,3 @@ class APIConnector:
 			self._player_stats = Player(self.json_object['elements'])
 
 		return self._player_stats
-
-	def get_player_types(self):
-		return self.json_object['element_types']
