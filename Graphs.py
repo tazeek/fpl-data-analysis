@@ -14,13 +14,13 @@ class Graphs:
 		self._teams_info = self._api_connector.get_teams_information()
 		self._gameweek_obj = self._api_connector.get_events_gameweeks()
 		self._player_obj = self._api_connector.get_player_information()
-		
+
 		self._player_details = self._player_obj.get_players_stats()[['name','id']]
 
 		self._results_obj = Results(self._teams_info)
 		self._gameweek_results = self._results_obj.prepare_gameweek_stats()
 
-		self._gameweek_number = self._gameweek_obj.current_gameweek_number().item() # convert int64 to int
+		self._gameweek_number = self._gameweek_obj.get_current_gameweek()
 
 		self._x_values = [i for i in range(1, self._gameweek_number + 1)]
 
@@ -168,7 +168,6 @@ class Graphs:
 		gameweek_stats = self._gameweek_obj
 
 		scores_df = gameweek_stats.fetch_scores()
-		total_gameweeks_played = gameweek_stats.total_gameweeks()
 
 		fig.add_trace(
 			go.Scatter(
@@ -211,9 +210,8 @@ class Graphs:
 	def get_transfers_stats(self):
 
 		fig = go.Figure()
-		gameweek_stats = self._gameweek_obj
 
-		transfers_df = gameweek_stats.fetch_transfers()
+		transfers_df = self._gameweek_obj.fetch_transfers()
 
 		fig.add_trace(
 			go.Scatter(
@@ -231,7 +229,7 @@ class Graphs:
 		fig.update_xaxes(
 			title_text = "Gameweek",
 			tickangle = 45,
-			nticks = gameweek_stats.total_gameweeks() + 1,
+			nticks = self._gameweek_number,
 			title_standoff = 25
 		)
 
