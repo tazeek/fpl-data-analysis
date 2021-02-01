@@ -133,7 +133,7 @@ class Results:
 			'bonus': 0
 		}
 	
-	def _populate_stats(stats_json, field, players_dict):
+	def _populate_stats(self, stats_json, field, players_dict):
 
 		for stat in stats_json['a'] + stats_json['h']:
 			player = stat['element']
