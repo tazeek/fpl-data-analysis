@@ -191,7 +191,7 @@ class Results:
 		bonus_stats_only_df = pd.merge(player_details, bonus_stats_only_df, on='id')
 
 		# Sort in descending order
-		inform_stats_df.sort_values('involved',inplace=True)
+		inform_stats_df.sort_values('involved',inplace=True, ascending=False)
 		bonus_stats_only_df.sort_values('bonus',inplace=True)
 
 

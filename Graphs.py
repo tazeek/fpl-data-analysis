@@ -347,10 +347,14 @@ class Graphs:
 			)
 		)
 
+		inform_stats_fig.update_yaxes(
+			autorange="reversed"
+		)
+
 		inform_stats_fig.update_layout(
 			barmode='stack',
 			title="Goals and assists (Last 4 matches)",
-			height = 700
+			height = 50 * len(prev_stats_df)
 		)
 
 		bonus_points_fig = go.Figure()
