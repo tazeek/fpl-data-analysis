@@ -73,6 +73,14 @@ class Results:
 
 		return overall_df.sort_values('difficulty')
 
+	def _return_empty_team_dict(self):
+
+		return {
+			'goals_for': 0,
+			'goals_against': 0,
+			'clean_sheets_num': 0
+		}
+
 	def find_previous_match_results(self):
 
 		# Filter columns and drop null values
@@ -93,18 +101,10 @@ class Results:
 			away_team = results['team_a']
 
 			if home_team not in team_form_dict:
-				team_form_dict[home_team] = {
-					'goals_for': 0,
-					'goals_against': 0,
-					'clean_sheets_num': 0
-				}
+				team_form_dict[home_team] =self._return_empty_team_dict()
 
 			if away_team not in team_form_dict:
-				team_form_dict[away_team] = {
-					'goals_for': 0,
-					'goals_against': 0,
-					'clean_sheets_num': 0
-				}
+				team_form_dict[away_team] = self._return_empty_team_dict()
 
 			home_score = results['team_h_score']
 			away_score = results['team_a_score']
