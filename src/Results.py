@@ -132,6 +132,10 @@ class Results:
 			'assists': 0,
 			'bonus': 0
 		}
+	
+	def _helper_function_stats():
+
+		return None
 
 	def find_stats_previous_matches(self, player_details):
 
