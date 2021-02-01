@@ -133,7 +133,16 @@ class Results:
 			'bonus': 0
 		}
 	
-	def _helper_function_stats():
+	def _populate_stats(stats_json, field, players_dict):
+
+		for stat in stats_json['a'] + stats_json['h']:
+			player = stat['element']
+			stat_val = stat['value']
+
+			if player not in players_dict:
+				players_dict[player] = self._return_empty_dict_player(player)
+
+			players_dict[player][field] += stat_val
 
 		return None
 
@@ -153,39 +162,14 @@ class Results:
 			if len(stat) == 0:
 				continue
 
-			goals_scored_json = stat[0]
-			goals_assists_json = stat[1]
-			bonus_points_json = stat[8]
-
 			# For goals scored
-			for scorer in goals_scored_json['a'] + goals_scored_json['h']:
-				player = scorer['element']
-				goals_scored = scorer['value']
-
-				if player not in in_form_players_dict:
-					in_form_players_dict[player] = self._return_empty_dict_player(player)
-
-				in_form_players_dict[player]['goals'] += goals_scored
+			self._populate_stats(stat[0], 'goals', in_form_players_dict)
 
 			# For assists
-			for assister in goals_assists_json['a'] + goals_assists_json['h']:
-				player = assister['element']
-				goals_assist = assister['value']
-
-				if player not in in_form_players_dict:
-					in_form_players_dict[player] = self._return_empty_dict_player(player)
-
-				in_form_players_dict[player]['assists'] += goals_assist
+			self._populate_stats(stat[1], 'assists', in_form_players_dict)
 
 			# For bonus points
-			for bonus_player in bonus_points_json['a'] + bonus_points_json['h']:
-				player = bonus_player['element']
-				bonus_points = bonus_player['value']
-
-				if player not in in_form_players_dict:
-					in_form_players_dict[player] = self._return_empty_dict_player(player)
-
-				in_form_players_dict[player]['bonus'] += bonus_points
+			self._populate_stats(stat[8], 'bonus', in_form_players_dict)
 
 		inform_stats_df = pd.DataFrame.from_dict(in_form_players_dict, orient='index')
 
